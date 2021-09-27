@@ -10,14 +10,15 @@
         <!-- 右侧导航 -->
         <div class="links">
             <!-- 一键切换黑暗模式 -->
-            <BulbFilled :style="{fontSize: '18px', lineHeight: '25px',marginRight: '1.5rem'}" />
+            <BulbOutlined :style="{fontSize: '18px', lineHeight: '25px',marginRight: '1.5rem'}" v-if="darkMode" @click="changeMode"/>
+            <BulbFilled :style="{fontSize: '18px', lineHeight: '25px',marginRight: '1.5rem'}" v-else @click="changeMode"/>
             <!-- 文章搜索按钮 -->
             <a-input-group compact>
                 <a-select v-model:value="searchType">
                     <a-select-option value="文章">文章</a-select-option>
                     <a-select-option value="标签">标签</a-select-option>
                 </a-select>
-                <a-input style="width: 60%" v-model:value="searchKeywords" />
+                <a-input style="width: 60%" v-model:value="searchKeywords" @search="onSearch"/>
             </a-input-group>
             <!-- 导航 -->
             <ul class="links_list">
@@ -67,19 +68,31 @@
 
 <script lang="ts" setup>
     import {ref} from 'vue'
-    import { BulbFilled,MailOutlined, AppstoreOutlined, SettingOutlined ,DownOutlined} from '@ant-design/icons-vue';
+    import { BulbFilled,DownOutlined,BulbOutlined} from '@ant-design/icons-vue';
 
-    // 约束下拉菜单
-    interface MenuInfo{
-        key:string
+   
+    // 切换灯光模式
+    const darkMode = ref<boolean>(false)
+
+    const changeMode = ()=>{
+        darkMode.value = !darkMode.value
     }
 
-    const searchType = ref<string>('文章')
+    // 搜索文章
+    const searchType = ref<string[]>(['标签'])
     
     const searchKeywords = ref<string>('')
 
-    const current = ref<string[]>(['mail']);
+    const onSearch = () => {
+        console.log('搜索文章')
+    }
 
+
+    // 切换搜文章类型
+     // 约束下拉菜单
+    interface MenuInfo{
+        key:string
+    }
     const gitClick = ({key}:MenuInfo) =>{
         if(key == "1"){
             
@@ -111,6 +124,7 @@
         right: 1.5rem;
         top: 0.7rem;
         display: flex;
+        justify-content: space-between;
             :deep(.anticon-bulb){
                 cursor: pointer;
                 svg{
@@ -132,6 +146,7 @@
                 margin-bottom: 0;
                 .link_item{
                     margin-left: 1.5rem;
+                    min-width: 30px;
                     a{
                         color: #fff;
                     }
