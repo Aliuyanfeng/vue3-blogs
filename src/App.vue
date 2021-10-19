@@ -41,21 +41,19 @@
   <!-- 首页加载动画结束 -->
   <TopNav></TopNav>
 
-  <!-- 随机banner -->
-  <div class="site_banner">
-  
-  </div>
+  <router-view></router-view>
 </template>
 
 <script lang="ts">
 // 不适用setup 语法糖写法
-  import { defineComponent } from 'vue';
+  import { defineComponent,onMounted,ref } from 'vue';
   import HelloWorld from "@/components/HelloWorld.vue";
   import TopNav from "@/components/nav/TopNav.vue"
   export default defineComponent({
     name:'App',
     setup() {
       
+     
     },
     components:{
       HelloWorld,
@@ -66,17 +64,13 @@
   })
 </script>
 
-<style>
+<style  lang="scss">
 @import "@/assets/css/loading.scss";
 @import "@/assets/css/reset.css";
 
-.site_banner{
-  background: url('@/assets/img/banner/scenery1.jpg');
-  width: 100%;
-  height: 600px;
-  background-repeat: no-repeat;
-  background-size: cover;
-
+#app{
+  position: relative;
 }
+
 
 </style>

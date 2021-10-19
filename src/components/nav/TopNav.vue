@@ -1,8 +1,9 @@
 <template>
     <!-- 头部导航 -->
-    <div class="header_nav">
+    <div class="header_nav flex_box">
         <!-- 左侧logo -->
-        <a href="/" class="home_link">
+        <a href="/" class="home_link flex_box">
+            <img src="@/assets/img/logo.png" alt="">
             <span class="site_name">
             小刘没睡醒呢
             </span>
@@ -112,11 +113,16 @@
     padding: 0.7rem 1.5rem;
     transition: all .5s ease-in-out;
     box-sizing: border-box;
+    align-items: center;
+    z-index: 100;
     .home_link{
+        align-items: center;
         .site_name{
             font-size: 1.3rem;
-            font-weight: 600;
-            color: #2c3e50;
+            // font-weight: 600;
+            // color: #2c3e50;
+            color: #fff;
+            font-family: STKaiti;
         }
     }
     .links{
@@ -132,7 +138,7 @@
                 }
             }
             :deep(.ant-menu){
-                background: transparent;
+                background-color: transparent;
                 border-bottom: none;
             }
 
@@ -147,8 +153,25 @@
                 .link_item{
                     margin-left: 1.5rem;
                     min-width: 30px;
+                    position: relative;
+                    transition: all .5s ease-in-out linear;
+                    &:hover{
+                        transition: all .5s ease-in-out linear;
+                        &::after{
+                            content: "";
+                            position: absolute;
+                            bottom: -5px;
+                            left: 50%;
+                            transform: translate(-50%,0);
+                            width: 30px;
+                            height: 3px;
+                            background-color: turquoise;
+                            transition: all .5s ease-in-out linear;
+                        }
+                    }
                     a{
                         color: #fff;
+                        font-size: 16px;
                     }
                 }
             }
