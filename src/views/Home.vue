@@ -42,7 +42,18 @@
               :show-info="false"
             />
           </li>
-          <li></li>
+          <li>
+            <p>本月已经过去了{{passDay}}天</p>
+            <a-progress
+              :stroke-color="{
+                from: '#108ee9',
+                to: '#87d068',
+              }"
+              :percent="passDayPer"
+              status="active"
+              :show-info="false"
+            />
+          </li>
           <li></li>
           <li></li>
         </ul>
@@ -111,11 +122,17 @@ const indexBgcFunc = (max: number, min: number) => {
 };
 
 
-// 计算几天过去了多少小时
+// 计算今天过去了多少小时
 
 const passHour:number = new Date().getHours()
 
 const passHourPer = (passHour / 24) * 100
+
+
+// 计算这个月过去了多少天
+const passDay:number = new Date().getDay()
+
+const passDayPer = (passDay)
 
 </script>
 <style lang="scss" scoped>
