@@ -130,9 +130,18 @@ const passHourPer = (passHour / 24) * 100
 
 
 // 计算这个月过去了多少天
-const passDay:number = new Date().getDay()
+const currentYear:number = new Date().getFullYear() //获取今年是几几年
 
-const passDayPer = (passDay)
+var currentMonth:number = new Date().getMonth()  //获取月份
+    currentMonth += 1
+
+const passDay:number = new Date().getDate()  //本月是几号
+
+const totalDay:number = new Date(currentYear,currentMonth,0).getDate()  //获取本月有多少天
+
+const passDayPer = (passDay / totalDay) * 100
+
+
 
 </script>
 <style lang="scss" scoped>
