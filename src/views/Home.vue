@@ -54,7 +54,18 @@
               :show-info="false"
             />
           </li>
-          <li></li>
+          <li>
+            <p>今年已经过去了{{passDayByYear}}天</p>
+            <a-progress
+              :stroke-color="{
+                from: '#108ee9',
+                to: '#87d068',
+              }"
+              :percent="passDayByYearPer"
+              status="active"
+              :show-info="false"
+            />
+          </li>
           <li></li>
         </ul>
       </div>
@@ -140,6 +151,46 @@ const passDay:number = new Date().getDate()  //本月是几号
 const totalDay:number = new Date(currentYear,currentMonth,0).getDate()  //获取本月有多少天
 
 const passDayPer = (passDay / totalDay) * 100
+
+/**
+ * @description: 计算今年过去了多少天
+ * @param {*}
+ * @return {*}
+ * @author: Aliuyanfeng
+ * @Date: 2021-11-06 15:18:48
+ */
+
+const passDayByYear = ref<number>(0);
+
+const passDayByYearPer = ref<number>(0)
+
+const totalDayByYear = ref<Date>()
+
+  
+totalDayByYear.value= new Date(currentYear, 0); // 获取今年string  
+
+const currentDayByYear = ref<Date>()
+
+currentDayByYear.value = new Date(currentYear, currentMonth-1, passDay); //获取今年当天的 string
+
+// 通过前后相减获得时间戳
+passDayByYear.value =(Number(currentDayByYear.value) - Number(totalDayByYear.value)) / (1000 * 60 * 60 * 24) + 1
+
+const numDayByYear = ref<number>(0) // 今年总共多少天
+
+numDayByYear.value = Number(totalDayByYear.value)
+
+ 
+if(currentYear % 4 === 0 && currentYear % 100 !== 0 && currentYear % 400 === 0){
+  numDayByYear.value = 366
+}else{
+  numDayByYear.value = 365
+}
+
+      
+passDayByYearPer.value = (passDayByYear.value / numDayByYear.value) * 100
+
+
 
 
 
