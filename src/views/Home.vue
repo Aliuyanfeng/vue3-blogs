@@ -124,71 +124,71 @@ onMounted(() => {
 });
 
 
-// 随机背景色的索引
-// 随机数改为
-const indexBgc = ref<number>(1);
-// 随机背景
-const indexBgcFunc = (max: number, min: number) => {
-  return Math.floor(Math.random() * max + min);
-};
+  // 随机背景色的索引
+  // 随机数改为
+  const indexBgc = ref<number>(1);
+  // 随机背景
+  const indexBgcFunc = (max: number, min: number) => {
+    return Math.floor(Math.random() * max + min);
+  };
 
 
-// 计算今天过去了多少小时
+  // 计算今天过去了多少小时
 
-const passHour:number = new Date().getHours()
+  const passHour:number = new Date().getHours()
 
-const passHourPer = (passHour / 24) * 100
+  const passHourPer = (passHour / 24) * 100
 
 
-// 计算这个月过去了多少天
-const currentYear:number = new Date().getFullYear() //获取今年是几几年
+  // 计算这个月过去了多少天
+  const currentYear:number = new Date().getFullYear() //获取今年是几几年
 
-var currentMonth:number = new Date().getMonth()  //获取月份
-    currentMonth += 1
+  var currentMonth:number = new Date().getMonth()  //获取月份
+      currentMonth += 1
 
-const passDay:number = new Date().getDate()  //本月是几号
+  const passDay:number = new Date().getDate()  //本月是几号
 
-const totalDay:number = new Date(currentYear,currentMonth,0).getDate()  //获取本月有多少天
+  const totalDay:number = new Date(currentYear,currentMonth,0).getDate()  //获取本月有多少天
 
-const passDayPer = (passDay / totalDay) * 100
+  const passDayPer = (passDay / totalDay) * 100
 
-/**
- * @description: 计算今年过去了多少天
- * @param {*}
- * @return {*}
- * @author: Aliuyanfeng
- * @Date: 2021-11-06 15:18:48
- */
+  /**
+   * @description: 计算今年过去了多少天
+   * @param {*}
+   * @return {*}
+   * @author: Aliuyanfeng
+   * @Date: 2021-11-06 15:18:48
+   */
 
-const passDayByYear = ref<number>(0);
+  const passDayByYear = ref<number>(0);
 
-const passDayByYearPer = ref<number>(0)
+  const passDayByYearPer = ref<number>(0)
 
-const totalDayByYear = ref<Date>()
+  const totalDayByYear = ref<Date>()
+
+    
+  totalDayByYear.value= new Date(currentYear, 0); // 获取今年string  
+
+  const currentDayByYear = ref<Date>()
+
+  currentDayByYear.value = new Date(currentYear, currentMonth-1, passDay); //获取今年当天的 string
+
+  // 通过前后相减获得时间戳
+  passDayByYear.value =(Number(currentDayByYear.value) - Number(totalDayByYear.value)) / (1000 * 60 * 60 * 24) + 1
+
+  const numDayByYear = ref<number>(0) // 今年总共多少天
+
+  numDayByYear.value = Number(totalDayByYear.value)
 
   
-totalDayByYear.value= new Date(currentYear, 0); // 获取今年string  
+  if(currentYear % 4 === 0 && currentYear % 100 !== 0 && currentYear % 400 === 0){
+    numDayByYear.value = 366
+  }else{
+    numDayByYear.value = 365
+  }
 
-const currentDayByYear = ref<Date>()
-
-currentDayByYear.value = new Date(currentYear, currentMonth-1, passDay); //获取今年当天的 string
-
-// 通过前后相减获得时间戳
-passDayByYear.value =(Number(currentDayByYear.value) - Number(totalDayByYear.value)) / (1000 * 60 * 60 * 24) + 1
-
-const numDayByYear = ref<number>(0) // 今年总共多少天
-
-numDayByYear.value = Number(totalDayByYear.value)
-
- 
-if(currentYear % 4 === 0 && currentYear % 100 !== 0 && currentYear % 400 === 0){
-  numDayByYear.value = 366
-}else{
-  numDayByYear.value = 365
-}
-
-      
-passDayByYearPer.value = (passDayByYear.value / numDayByYear.value) * 100
+        
+  passDayByYearPer.value = (passDayByYear.value / numDayByYear.value) * 100
 
 
 
