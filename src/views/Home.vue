@@ -28,7 +28,7 @@
       </div>
 
       <div class="aside_progress">
-        <p class="verse_time">已为陈迹</p>
+        <p class="verse_time">已为陈迹测试</p>
         <ul class="aside_box">
           <li>
             <p>今天已经过去了{{passHour}}个小时</p>
