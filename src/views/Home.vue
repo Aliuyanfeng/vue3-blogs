@@ -15,7 +15,7 @@
         <div class="aside_bgc"></div>
         <div class="aside_avatar aside_box">
           <img src="@/assets/img/avatar/avatar.jpg" alt="" class="avatar" />
-          <span class="username">小刘没睡醒呢测试bbb</span>
+          <span class="username">小刘没睡醒呢测试ccc</span>
         </div>
         <div class="aside_box">
           <canvas id="canvas" ref="canvas"></canvas>
