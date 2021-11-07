@@ -15,7 +15,7 @@
         <div class="aside_bgc"></div>
         <div class="aside_avatar aside_box">
           <img src="@/assets/img/avatar/avatar.jpg" alt="" class="avatar" />
-          <span class="username">小刘没睡醒呢测试ccc</span>
+          <span class="username">小刘没睡醒呢测试</span>
         </div>
         <div class="aside_box">
           <canvas id="canvas" ref="canvas"></canvas>
@@ -66,7 +66,18 @@
               :show-info="false"
             />
           </li>
-          <li></li>
+          <li>
+            <p>距离春节回家还有{{fromHomeDay}}天</p>
+            <a-progress
+              :stroke-color="{
+                from: '#108ee9',
+                to: '#87d068',
+              }"
+              :percent="passDayByYearPer"
+              status="active"
+              :show-info="false"
+            />
+          </li>
         </ul>
       </div>
     </aside>
@@ -121,6 +132,9 @@ onMounted(() => {
     context.closePath();
   };
   setInterval(draw, 100);
+
+  // 计算距离春节还有多久
+  getFromHomeDay(thisYearDate.value)
 });
 
 
@@ -143,7 +157,7 @@ onMounted(() => {
   // 计算这个月过去了多少天
   const currentYear:number = new Date().getFullYear() //获取今年是几几年
 
-  var currentMonth:number = new Date().getMonth()  //获取月份
+  let currentMonth:number = new Date().getMonth()  //获取月份
       currentMonth += 1
 
   const passDay:number = new Date().getDate()  //本月是几号
@@ -186,9 +200,26 @@ onMounted(() => {
   }else{
     numDayByYear.value = 365
   }
-
-        
+     
   passDayByYearPer.value = (passDayByYear.value / numDayByYear.value) * 100
+
+  // 计算距离过年还有多少天
+  // 今年是2022-01-31过年
+
+  const thisYearDate = ref<String>('2022-01-31');  //今年春节的日期
+
+  const fromHomeDay = ref<number>(0);  //距离春节还有多少天
+
+  const getFromHomeDay = (data:any) => {
+
+    let endTime = new Date(data)
+    let nowTime = new Date()
+
+    let timeStamp = endTime.getTime() - nowTime.getTime()
+
+    fromHomeDay.value = Math.floor(timeStamp / 1000 / 60 / 60 / 24 )
+  }
+
 
 
 
