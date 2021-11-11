@@ -13,6 +13,7 @@
     "path": "^0.12.7",
     "vue": "^3.2.13",
     "vue-class-component": "^7.2.6",
+    "vue-request": "^1.2.3",
     "vue-router": "^4.0.11",
     "vuex": "^4.0.2"
   },

@@ -83,59 +83,126 @@
     </aside>
 
     <!-- 文章预览 -->
-    <article></article>
+    <article>
+      <a-list
+        class="demo-loadmore-list"
+        :loading="loading"
+        item-layout="vertical"
+        :data-source="dataList"
+      >
+        <template #loadMore>
+          <div :style="{ textAlign: 'center', marginTop: '12px', height: '32px', lineHeight: '32px' }">
+            <a-spin v-if="loadingMore" />
+            <a-button v-else @click="loadMore">加载更多</a-button>
+          </div>
+        </template>
+        <template #renderItem="{ item }">
+          <a-list-item key="item.title">
+
+            <template #actions>
+              <a><CalendarTwoTone :style="{marginRight: '0.5rem'}" />2021-11-12</a>
+              <!-- <a><HeartTwoTone twoToneColor="#eb2f96" /></a> -->
+              <a><MessageTwoTone/></a>
+              <a><LikeOutlined twoToneColor="#52c41a"/></a>
+              <a><FireTwoTone twoToneColor="red"/></a>
+            </template>
+            
+            <template #extra>
+              <img
+                width="272"
+                height="130"
+                alt="logo"
+                src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+              />
+            </template>
+
+            <a-list-item-meta description="这是文章的描述">
+              <template #title>
+                <a href="https://www.antdv.com/">文章的标题</a>
+              </template>
+              <template #avatar>
+                <a-avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+              </template>
+            </a-list-item-meta>
+
+            <a-tag color="pink">pink</a-tag>
+            <a-tag color="red">red</a-tag>
+            <a-tag color="orange">orange</a-tag>
+            <a-tag color="green">green</a-tag>
+            <a-tag color="cyan">cyan</a-tag>
+            <a-tag color="blue">blue</a-tag>
+            <a-tag color="purple">purple</a-tag>
+            
+          </a-list-item>
+        </template>
+      </a-list>
+    </article>
   </div>
+ <Footer></Footer>
+ 
 </template>
 
 <script setup lang="ts">
-import { defineComponent, onMounted, ref } from "vue";
-import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
 
-onMounted(() => {
-  
-  const canvas:any = document.getElementById('canvas');
-  const context = canvas.getContext("2d");
+  import { LikeOutlined,HeartTwoTone,CalendarTwoTone,FireTwoTone,MessageTwoTone,MessageOutlined } from '@ant-design/icons-vue';
 
-  var x = 0;
-  var coords = new Array();
+  import { defineComponent, onMounted, ref } from "vue";
 
-  const draw = () => {
-    canvas.width = canvas.width;
+  import Footer from "../components/footer.vue"
 
-    context.moveTo(0, 80);
+  import { useLoadMore } from 'vue-request';
 
-    x += 10;
+  const getFakeData = () => `https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo`;
 
-    if (x > 300) {
-      for (var i in coords) {
-        coords[i].x = coords[i].x - 10;
+  const { dataList, loading, loadingMore, loadMore } = useLoadMore(getFakeData, {
+    listKey: 'results',
+  });
+
+  onMounted(() => {
+    
+    const canvas:any = document.getElementById('canvas');
+    const context = canvas.getContext("2d");
+
+    var x = 0;
+    var coords = new Array();
+
+    const draw = () => {
+      canvas.width = canvas.width;
+
+      context.moveTo(0, 80);
+
+      x += 10;
+
+      if (x > 300) {
+        for (var i in coords) {
+          coords[i].x = coords[i].x - 10;
+        }
       }
-    }
 
-    var temp = {
-      x: x,
-      y: Math.floor(Math.random() * 80) + 40,
+      var temp = {
+        x: x,
+        y: Math.floor(Math.random() * 80) + 40,
+      };
+
+      coords.push(temp);
+
+      for (var i in coords) {
+        context.lineTo(coords[i].x, coords[i].y);
+      }
+
+      context.strokeStyle = "#9fdcf3";
+      context.lineWidth = 1;
+      context.shadowColor = "#9fdcf3";
+      context.shadowBlur = 10;
+
+      context.stroke();
+      context.closePath();
     };
+    setInterval(draw, 100);
 
-    coords.push(temp);
-
-    for (var i in coords) {
-      context.lineTo(coords[i].x, coords[i].y);
-    }
-
-    context.strokeStyle = "#9fdcf3";
-    context.lineWidth = 1;
-    context.shadowColor = "#9fdcf3";
-    context.shadowBlur = 10;
-
-    context.stroke();
-    context.closePath();
-  };
-  setInterval(draw, 100);
-
-  // 计算距离春节还有多久
-  getFromHomeDay(thisYearDate.value)
-});
+    // 计算距离春节还有多久
+    getFromHomeDay(thisYearDate.value)
+  });
 
 
   // 随机背景色的索引
@@ -221,10 +288,6 @@ onMounted(() => {
   }
 
 
-
-
-
-
 </script>
 <style lang="scss" scoped>
 canvas {
@@ -261,8 +324,9 @@ canvas {
 .main_container {
   width: 1200px;
   margin: 0 auto;
-  padding: 30px;
+  padding: 30px 0;
   background-color: transparent;
+  display: flex;
   aside {
     padding-bottom: 15px;
      width: 300px;
@@ -349,6 +413,14 @@ canvas {
         }
       }
     }
+  }
+  
+  article{
+    flex: 1;
+    background-color: #fff;
+    margin-left: 20px;
+    padding: 0 10px;
+    border-radius: 8px;
   }
 }
 </style>
