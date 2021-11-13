@@ -414,12 +414,11 @@ canvas {
       }
     }
   }
-  
   article{
     flex: 1;
     background-color: #fff;
     margin-left: 20px;
-    padding: 0 10px;
+    padding: 10px 20px;
     border-radius: 8px;
   }
 }

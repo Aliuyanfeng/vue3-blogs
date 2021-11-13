@@ -1,6 +1,6 @@
 <template>
     <footer>
-        <p> Copyright  &copy; 黑ICP备2021005861号-1 Powered by Aliuyanfeng</p>
+        <p> Copyright  &copy; <a href="https://beian.miit.gov.cn" target="_blank">黑ICP备2021005861号-1</a> Powered by Aliuyanfeng</p>
     </footer>
    
 </template>
