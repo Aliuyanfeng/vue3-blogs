@@ -150,13 +150,24 @@
 
   import Footer from "../components/footer.vue"
 
-  import { useLoadMore } from 'vue-request';
+  import { useLoadMore,useRequest } from 'vue-request';
 
   const getFakeData = () => `https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo`;
 
   const { dataList, loading, loadingMore, loadMore } = useLoadMore(getFakeData, {
     listKey: 'results',
   });
+
+  // 获取文章列表数据
+  const objectService = {
+    url: '/api/getArticleList',
+    method: 'get',
+    headers: new Headers({
+      'Content-Type': 'application/json',
+    }),
+  }; 
+  const { data } = useRequest(objectService);
+  // console.error(data)
 
   onMounted(() => {
     

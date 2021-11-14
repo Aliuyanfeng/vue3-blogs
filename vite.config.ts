@@ -36,15 +36,15 @@ export default defineConfig({
   },
   server: {
     // 配置端口号
-    port: 8080,
+    port: 8000,
     open: true,
-    // cors: true,
+    cors: true,
     proxy: {
-      //   '/api': {
-      //       target: 'http://192.168.99.223:3000',   //代理接口
-      //       changeOrigin: true,
-      //       rewrite: (path) => path.replace(/^\/api/, '')
-      // }
+        '/api': {
+            target: 'http://localhost:3000',   //代理接口
+            changeOrigin: true,
+            rewrite: (path) => path.replace(/^\/api/, '')
+      }
     }
   },
   

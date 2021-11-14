@@ -7,4 +7,10 @@ import store from './store'
 import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/antd.css';
 
+// 全局配置请求
+import { setGlobalOptions } from 'vue-request';
+setGlobalOptions({
+    manual: false,
+});
+
 createApp(App).use(store).use(router).use(Antd).mount('#app')
