@@ -97,10 +97,10 @@
           </div>
         </template>
         <template #renderItem="{ item }">
-          <a-list-item key="item.title">
+          <a-list-item key="item.article_title">
 
             <template #actions>
-              <a><CalendarTwoTone :style="{marginRight: '0.5rem'}" />2021-11-12</a>
+              <a><CalendarTwoTone :style="{marginRight: '0.5rem'}" />{{item.article_createtime.slice(0,10)}}</a>
               <!-- <a><HeartTwoTone twoToneColor="#eb2f96" /></a> -->
               <a><MessageTwoTone/></a>
               <a><LikeOutlined twoToneColor="#52c41a"/></a>
@@ -118,7 +118,7 @@
 
             <a-list-item-meta description="这是文章的描述">
               <template #title>
-                <a href="https://www.antdv.com/">文章的标题</a>
+                <a href="https://www.antdv.com/">{{item.article_title}}</a>
               </template>
               <template #avatar>
                 <a-avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
@@ -128,10 +128,11 @@
             <a-tag color="pink">pink</a-tag>
             <a-tag color="red">red</a-tag>
             <a-tag color="orange">orange</a-tag>
-            <a-tag color="green">green</a-tag>
-            <a-tag color="cyan">cyan</a-tag>
+            <a-tag color="green">Vue</a-tag>
+            <a-tag color="cyan">Vue</a-tag>
             <a-tag color="blue">blue</a-tag>
             <a-tag color="purple">purple</a-tag>
+            <a-tag color="black">置顶</a-tag>
             
           </a-list-item>
         </template>
@@ -152,21 +153,21 @@
 
   import { useLoadMore,useRequest } from 'vue-request';
 
-  const getFakeData = () => `https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo`;
+  const getFakeData = () => `/api/getArticleList`;
 
   const { dataList, loading, loadingMore, loadMore } = useLoadMore(getFakeData, {
-    listKey: 'results',
+    listKey: 'data',
   });
 
   // 获取文章列表数据
-  const objectService = {
-    url: '/api/getArticleList',
-    method: 'get',
-    headers: new Headers({
-      'Content-Type': 'application/json',
-    }),
-  }; 
-  const { data } = useRequest(objectService);
+  // const objectService = {
+  //   url: '/api/getArticleList',
+  //   method: 'get',
+  //   headers: new Headers({
+  //     'Content-Type': 'application/json',
+  //   }),
+  // }; 
+  // const { data } = useRequest(objectService);
   // console.error(data)
 
   onMounted(() => {
