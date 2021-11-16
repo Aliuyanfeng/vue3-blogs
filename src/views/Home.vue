@@ -93,7 +93,7 @@
         <template #loadMore>
           <div :style="{ textAlign: 'center', marginTop: '12px', height: '32px', lineHeight: '32px' }">
             <a-spin v-if="loadingMore" />
-            <a-button v-else @click="loadMore">加载更多</a-button>
+            <a-button v-else @click="loadMore">{{ noMore ? 'No more data' : 'Load more' }}</a-button>
           </div>
         </template>
         <template #renderItem="{ item }">
@@ -147,17 +147,60 @@
 
   import { LikeOutlined,HeartTwoTone,CalendarTwoTone,FireTwoTone,MessageTwoTone,MessageOutlined } from '@ant-design/icons-vue';
 
-  import { defineComponent, onMounted, ref } from "vue";
+  import { computed,defineComponent, onMounted, ref } from "vue";
 
   import Footer from "../components/footer.vue"
 
   import { useLoadMore,useRequest } from 'vue-request';
 
-  const getFakeData = () => `/api/getArticleList`;
+  type Data = {
+    data: {
+      id: number;
+      name: string;
+      avatar: string;
+      job: string;
+    }[];
+    total: number;
+  };
+  const testService = (params: { data?: Data; dataList?: Data['data'] }) => {
+    const p:any = { limit: 10 };
+    if (params?.dataList?.length !== undefined) {
+      p['page'] = params.dataList.length / p.limit + 1;
+    } else {
+      p['page'] = 1;
+    }
+    return {
+      url: `/api/getArticleList`,
+    };
+  }
 
-  const { dataList, loading, loadingMore, loadMore } = useLoadMore(getFakeData, {
-    listKey: 'data',
+  const { data, loadingMore, dataList, refreshing, loadMore, refresh,loading } = useLoadMore<
+      Data,
+      Parameters<typeof testService>,
+      Data['data']
+    >(testService, {
+      listKey: 'data',
   });
+
+  const noMore = computed(() => dataList.value.length === data.value?.total);
+
+  // const getFakeData = (page:number,pagesize:number) => {
+  //   return useRequest({
+  //     url: '/api/getArticleList',
+  //     method: 'get',
+  //     headers: new Headers({
+  //       'Content-Type': 'application/json',
+  //     }),
+  //     params: {
+  //       page: page,
+  //       pagesize:pagesize
+  //     },
+  //   })
+  // };
+
+  // const { dataList, loading, loadingMore, loadMore } = useLoadMore(getFakeData, {
+  //   listKey: 'data',
+  // });
 
   // 获取文章列表数据
   // const objectService = {
