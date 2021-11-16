@@ -100,7 +100,7 @@
           <a-list-item key="item.article_title">
 
             <template #actions>
-              <a><CalendarTwoTone :style="{marginRight: '0.5rem'}" />{{item.article_createtime.slice(0,10)}}</a>
+              <a><CalendarTwoTone :style="{marginRight: '0.5rem'}" />{{item.article_createtime}}</a>
               <!-- <a><HeartTwoTone twoToneColor="#eb2f96" /></a> -->
               <a><MessageTwoTone/></a>
               <a><LikeOutlined twoToneColor="#52c41a"/></a>
@@ -156,9 +156,13 @@
   type Data = {
     data: {
       id: number;
-      name: string;
-      avatar: string;
-      job: string;
+      article_title: string;
+      article_description: string;
+      article_createtime: string;
+      article_like:number;
+      article_read:number;
+      article_tag:string;
+      article_cover:string;
     }[];
     total: number;
   };
@@ -169,8 +173,10 @@
     } else {
       p['page'] = 1;
     }
+    console.error(params)
+    console.error(p)
     return {
-      url: `/api/getArticleList`,
+      url: `/api/getArticleList?${new URLSearchParams(p as any)}`,
     };
   }
 
