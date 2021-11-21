@@ -15,6 +15,9 @@ footer{
     line-height: 30px;
     p{
         color: #fff;
+        a{
+            color: #fff;
+        }
     }
 }
 </style>

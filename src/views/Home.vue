@@ -15,7 +15,7 @@
         <div class="aside_bgc"></div>
         <div class="aside_avatar aside_box">
           <img src="@/assets/img/avatar/avatar.jpg" alt="" class="avatar" />
-          <span class="username">小刘没睡醒呢测试aa</span>
+          <span class="username">小刘没睡醒呢</span>
         </div>
         <div class="aside_box">
           <canvas id="canvas" ref="canvas"></canvas>
@@ -28,7 +28,7 @@
       </div>
 
       <div class="aside_progress">
-        <p class="verse_time">已为陈迹测试</p>
+        <p class="verse_time">已为陈迹</p>
         <ul class="aside_box">
           <li>
             <p>今天已经过去了{{passHour}}个小时</p>
@@ -93,7 +93,7 @@
         <template #loadMore>
           <div :style="{ textAlign: 'center', marginTop: '12px', height: '32px', lineHeight: '32px' }">
             <a-spin v-if="loadingMore" />
-            <a-button v-else @click="loadMore">{{ noMore ? 'No more data' : 'Load more' }}</a-button>
+            <a-button v-else :disabled="noMore" :loading="loadingMore" @click="loadMore">{{ noMore ? 'No more data' : 'Load more' }}</a-button>
           </div>
         </template>
         <template #renderItem="{ item }">
@@ -147,12 +147,20 @@
 
   import { LikeOutlined,HeartTwoTone,CalendarTwoTone,FireTwoTone,MessageTwoTone,MessageOutlined } from '@ant-design/icons-vue';
 
-  import { computed,defineComponent, onMounted, ref } from "vue";
+  import { computed,defineComponent, onMounted, ref ,watch,defineEmits,SetupContext} from "vue";
 
   import Footer from "../components/footer.vue"
 
   import { useLoadMore,useRequest } from 'vue-request';
 
+  // emit 子组件出发父组件事件
+  const emit = defineEmits(['close-loading'])
+  // 父组件传值获取办法
+  const props = defineProps({
+    msg: String
+  })
+ 
+  // vue-request 加载更多事件
   type Data = {
     data: {
       id: number;
@@ -173,8 +181,6 @@
     } else {
       p['page'] = 1;
     }
-    console.error(params)
-    console.error(p)
     return {
       url: `/api/getArticleList?${new URLSearchParams(p as any)}`,
     };
@@ -186,9 +192,22 @@
       Data['data']
     >(testService, {
       listKey: 'data',
-  });
+  })
 
   const noMore = computed(() => dataList.value.length === data.value?.total);
+  
+  // 监听接口完成关闭loading
+  watch(loading,(newVal,oldVal) => {
+    console.error(newVal)
+    if(!newVal){
+      setTimeout(() => {
+         emit('close-loading')
+      }, 2000);
+     
+    }
+  })
+
+ 
 
   // const getFakeData = (page:number,pagesize:number) => {
   //   return useRequest({

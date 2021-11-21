@@ -1,6 +1,6 @@
 <template>
   <!-- 首页加载动画 -->
-  <div class="loading_page" v-if="false">
+  <div class="loading_page" v-if="loadingStatus">
     <div class="loader">
       <div class="text">Loading...</div>
       <div class="horizontal">
@@ -41,7 +41,7 @@
   <!-- 首页加载动画结束 -->
   <TopNav></TopNav>
 
-  <router-view></router-view>
+  <router-view @close-loading="closeLoading"></router-view>
 </template>
 
 <script lang="ts">
@@ -52,14 +52,21 @@
   export default defineComponent({
     name:'App',
     setup() {
-      
      
+     const loadingStatus = ref<boolean>(true)
+     const closeLoading = ()=>{
+      loadingStatus.value = false
+     }
+     return{
+        closeLoading,
+        loadingStatus
+      }
     },
     components:{
       HelloWorld,
       TopNav,
     },
-    
+   
 
   })
 </script>

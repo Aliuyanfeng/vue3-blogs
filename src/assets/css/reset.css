@@ -6,6 +6,7 @@ ul,ol{
     list-style: none;
 }
 a{
+    color: #333;
     text-decoration: none;
 }
 img{
