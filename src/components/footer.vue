@@ -6,6 +6,14 @@
 </template>
 <script lang="ts" setup>
     import {ref} from 'vue'
+    import { test } from '@/api/index';
+
+    test().then(response => {
+        const res: any = response.data
+        if(res.code === 200){
+            console.error(res)
+        }
+    })
 </script>
 <style lang="scss" scoped>
 footer{
