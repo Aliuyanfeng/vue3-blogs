@@ -1,17 +1,30 @@
 <template>
     <footer>
-        <p> Copyright  &copy; <a href="https://beian.miit.gov.cn" target="_blank">黑ICP备2021005861号-1</a> Powered by Aliuyanfeng测试</p>
+        <p> Copyright  &copy; <a href="https://beian.miit.gov.cn" target="_blank">黑ICP备2021005861号-1</a> Powered by Aliuyanfeng测试{{testcount}}</p>
+        <button @click="handelout">+++</button>
     </footer>
    
 </template>
 <script lang="ts" setup>
-    import {ref} from 'vue'
+    import {ref,computed} from 'vue'
+
     import { test } from '@/api/index';
 
-    test().then(response => {
+    import { useStore } from '@/store'
+
+    const store = useStore()
+
+    const testname = computed(()=>store.state.testModule.name)
+
+    const testcount = computed(()=>store.state.testModule.count)
+
+    const handelout = ()=>{
+        store.commit('testModule/add_count')
+    }
+
+    test().then((response: { data: any; }) => {
         const res: any = response.data
         if(res.code === 200){
-            console.error(res)
         }
     })
 </script>

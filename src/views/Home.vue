@@ -15,13 +15,13 @@
         <div class="aside_bgc"></div>
         <div class="aside_avatar aside_box">
           <img src="@/assets/img/avatar/avatar.jpg" alt="" class="avatar" />
-          <span class="username">小刘没睡醒呢</span>
+          <span class="username">{{userInfo?.blog_title}}</span>
         </div>
         <div class="aside_box">
           <canvas id="canvas" ref="canvas"></canvas>
         </div>
         <div class="aside_text aside_box">
-          <p>这个城市已经死了，这个夏天也死了。</p>
+          <p>{{userInfo?.blog_descrption}}</p>
           <!-- <p>我们走在街上，遇到的是一群死人和另一群死人。</p>
           <p>而他们看起来就像活着一样，就像活着一样。</p> -->
         </div>
@@ -31,7 +31,7 @@
         <p class="verse_time">已为陈迹</p>
         <ul class="aside_box">
           <li>
-            <p>今天已经过去了{{passHour}}个小时</p>
+            <p>今天已经过去了{{ passHour }}个小时</p>
             <a-progress
               :stroke-color="{
                 from: '#108ee9',
@@ -43,7 +43,7 @@
             />
           </li>
           <li>
-            <p>本月已经过去了{{passDay}}天</p>
+            <p>本月已经过去了{{ passDay }}天</p>
             <a-progress
               :stroke-color="{
                 from: '#108ee9',
@@ -55,7 +55,7 @@
             />
           </li>
           <li>
-            <p>今年已经过去了{{passDayByYear}}天</p>
+            <p>今年已经过去了{{ passDayByYear }}天</p>
             <a-progress
               :stroke-color="{
                 from: '#108ee9',
@@ -67,7 +67,7 @@
             />
           </li>
           <li>
-            <p>距离春节回家还有{{fromHomeDay}}天</p>
+            <p>距离春节回家还有{{ fromHomeDay }}天</p>
             <a-progress
               :stroke-color="{
                 from: '#108ee9',
@@ -91,22 +91,38 @@
         :data-source="dataList"
       >
         <template #loadMore>
-          <div :style="{ textAlign: 'center', marginTop: '12px', height: '32px', lineHeight: '32px' }">
+          <div
+            :style="{
+              textAlign: 'center',
+              marginTop: '12px',
+              height: '32px',
+              lineHeight: '32px',
+            }"
+          >
             <a-spin v-if="loadingMore" />
-            <a-button v-else :disabled="noMore" :loading="loadingMore" @click="loadMore">{{ noMore ? 'No more data' : 'Load more' }}</a-button>
+            <a-button
+              v-else
+              :disabled="noMore"
+              :loading="loadingMore"
+              @click="loadMore"
+              >{{ noMore ? "No more data" : "Load more" }}</a-button
+            >
           </div>
         </template>
         <template #renderItem="{ item }">
           <a-list-item key="item.article_title">
-
             <template #actions>
-              <a><CalendarTwoTone :style="{marginRight: '0.5rem'}" />{{item.article_createtime}}</a>
+              <a
+                ><CalendarTwoTone :style="{ marginRight: '0.5rem' }" />{{
+                  item.article_createtime
+                }}</a
+              >
               <!-- <a><HeartTwoTone twoToneColor="#eb2f96" /></a> -->
-              <a><MessageTwoTone/></a>
-              <a><LikeOutlined twoToneColor="#52c41a"/></a>
-              <a><FireTwoTone twoToneColor="red"/></a>
+              <a><MessageTwoTone /></a>
+              <a><LikeOutlined twoToneColor="#52c41a" /></a>
+              <a><FireTwoTone twoToneColor="red" /></a>
             </template>
-            
+
             <template #extra>
               <img
                 width="272"
@@ -118,10 +134,12 @@
 
             <a-list-item-meta description="这是文章的描述">
               <template #title>
-                <a href="https://www.antdv.com/">{{item.article_title}}</a>
+                <a href="https://www.antdv.com/">{{ item.article_title }}</a>
               </template>
               <template #avatar>
-                <a-avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                <a-avatar
+                  src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                />
               </template>
             </a-list-item-meta>
 
@@ -133,241 +151,256 @@
             <a-tag color="blue">blue</a-tag>
             <a-tag color="purple">purple</a-tag>
             <a-tag color="black">置顶</a-tag>
-            
           </a-list-item>
         </template>
       </a-list>
     </article>
   </div>
- <Footer></Footer>
- 
+  <Footer></Footer>
 </template>
 
 <script setup lang="ts">
+import {
+  LikeOutlined,
+  HeartTwoTone,
+  CalendarTwoTone,
+  FireTwoTone,
+  MessageTwoTone,
+  MessageOutlined,
+} from "@ant-design/icons-vue";
 
-  import { LikeOutlined,HeartTwoTone,CalendarTwoTone,FireTwoTone,MessageTwoTone,MessageOutlined } from '@ant-design/icons-vue';
+import {
+  computed,
+  defineComponent,
+  onMounted,
+  ref,
+  watch,
+  defineEmits,
+  SetupContext,
+  reactive
+} from "vue";
 
-  import { computed,defineComponent, onMounted, ref ,watch,defineEmits,SetupContext} from "vue";
+import Footer from "../components/footer.vue";
 
-  import Footer from "../components/footer.vue"
+import { useLoadMore, useRequest } from "vue-request";
 
-  import { useLoadMore,useRequest } from 'vue-request';
+import { getBaseInfo } from "@/api/index";
+// emit 子组件出发父组件事件
+const emit = defineEmits(["close-loading"]);
+// 父组件传值获取办法
+const props = defineProps({
+  msg: String,
+});
 
-  // emit 子组件出发父组件事件
-  const emit = defineEmits(['close-loading'])
-  // 父组件传值获取办法
-  const props = defineProps({
-    msg: String
-  })
- 
-  // vue-request 加载更多事件
-  type Data = {
-    data: {
-      id: number;
-      article_title: string;
-      article_description: string;
-      article_createtime: string;
-      article_like:number;
-      article_read:number;
-      article_tag:string;
-      article_cover:string;
-    }[];
-    total: number;
-  };
-  const testService = (params: { data?: Data; dataList?: Data['data'] }) => {
-    const p:any = { limit: 10 };
-    if (params?.dataList?.length !== undefined) {
-      p['page'] = params.dataList.length / p.limit + 1;
-    } else {
-      p['page'] = 1;
-    }
-    return {
-      url: `/api/getArticleList?${new URLSearchParams(p as any)}`,
-    };
+// vue-request 文章列表加载更多管理扩展，通过vue-request userLoadMore()管理列表
+// 声明接口返回数据类型
+type Data = {
+  data: {
+    id: number;
+    article_title: string;
+    article_description: string;
+    article_createtime: string;
+    article_like: number;
+    article_read: number;
+    article_tag: string;
+    article_cover: string;
+  }[];
+  total: number;
+};
+// 对下次url/参数进行计算
+const testService = (params: { data?: Data; dataList?: Data["data"] }) => {
+  const p: any = { limit: 10 };
+  if (params?.dataList?.length !== undefined) {
+    p["page"] = params.dataList.length / p.limit + 1;
+  } else {
+    p["page"] = 1;
   }
+  return {
+    url: `/api/getArticleList?${new URLSearchParams(p as any)}`,
+  };
+};
 
-  const { data, loadingMore, dataList, refreshing, loadMore, refresh,loading } = useLoadMore<
-      Data,
-      Parameters<typeof testService>,
-      Data['data']
-    >(testService, {
-      listKey: 'data',
-  })
+// 实际所使用的方法，通过解构赋值的方式获取所需要的状态 例如是否加载中 是否获取完成 是否还有更多
+const {
+  data,
+  loadingMore,
+  dataList,
+  refreshing,
+  loadMore,
+  refresh,
+  loading,
+} = useLoadMore<Data, Parameters<typeof testService>, Data["data"]>(testService, {
+  listKey: "data",
+});
 
-  const noMore = computed(() => dataList.value.length === data.value?.total);
-  
-  // 监听接口完成关闭loading
-  watch(loading,(newVal,oldVal) => {
-    console.error(newVal)
-    if(!newVal){
-      setTimeout(() => {
-         emit('close-loading')
-      }, 2000);
-     
-    }
-  })
+// 计算是否还有更多数据
+const noMore = computed(() => dataList.value.length === data.value?.total);
 
- 
+let userInfo = ref<any>()
 
-  // const getFakeData = (page:number,pagesize:number) => {
-  //   return useRequest({
-  //     url: '/api/getArticleList',
-  //     method: 'get',
-  //     headers: new Headers({
-  //       'Content-Type': 'application/json',
-  //     }),
-  //     params: {
-  //       page: page,
-  //       pagesize:pagesize
-  //     },
-  //   })
-  // };
+const _getBaseInfo = async () => {
+  const res = await getBaseInfo();
+  // 如果基础信息接口返回成功关闭loading
+  if (res.data.code == 200) {
 
-  // const { dataList, loading, loadingMore, loadMore } = useLoadMore(getFakeData, {
-  //   listKey: 'data',
-  // });
+    userInfo.value = res.data.data
 
-  // 获取文章列表数据
-  // const objectService = {
-  //   url: '/api/getArticleList',
-  //   method: 'get',
-  //   headers: new Headers({
-  //     'Content-Type': 'application/json',
-  //   }),
-  // }; 
-  // const { data } = useRequest(objectService);
-  // console.error(data)
+    setTimeout(() => {
+      emit("close-loading");
+    }, 2000);
+  }
+};
 
-  onMounted(() => {
-    
-    const canvas:any = document.getElementById('canvas');
-    const context = canvas.getContext("2d");
+// getBaseInfo 依赖列表接口
+const res = useRequest(_getBaseInfo, {
+  ready: computed(() => loading.value),
+});
 
-    var x = 0;
-    var coords = new Array();
 
-    const draw = () => {
-      canvas.width = canvas.width;
+onMounted(() => {
+  // 绘制心电图
+  const canvas: any = document.getElementById("canvas");
+  const context = canvas.getContext("2d");
 
-      context.moveTo(0, 80);
+  var x = 0;
+  var coords = new Array();
 
-      x += 10;
+  const draw = () => {
+    canvas.width = canvas.width;
 
-      if (x > 300) {
-        for (var i in coords) {
-          coords[i].x = coords[i].x - 10;
-        }
-      }
+    context.moveTo(0, 80);
 
-      var temp = {
-        x: x,
-        y: Math.floor(Math.random() * 80) + 40,
-      };
+    x += 10;
 
-      coords.push(temp);
-
+    if (x > 300) {
       for (var i in coords) {
-        context.lineTo(coords[i].x, coords[i].y);
+        coords[i].x = coords[i].x - 10;
       }
+    }
 
-      context.strokeStyle = "#9fdcf3";
-      context.lineWidth = 1;
-      context.shadowColor = "#9fdcf3";
-      context.shadowBlur = 10;
-
-      context.stroke();
-      context.closePath();
+    var temp = {
+      x: x,
+      y: Math.floor(Math.random() * 80) + 40,
     };
-    setInterval(draw, 100);
 
-    // 计算距离春节还有多久
-    getFromHomeDay(thisYearDate.value)
-  });
+    coords.push(temp);
 
+    for (var i in coords) {
+      context.lineTo(coords[i].x, coords[i].y);
+    }
 
-  // 随机背景色的索引
-  // 随机数改为
-  const indexBgc = ref<number>(1);
-  // 随机背景
-  const indexBgcFunc = (max: number, min: number) => {
-    return Math.floor(Math.random() * max + min);
+    context.strokeStyle = "#9fdcf3";
+    context.lineWidth = 1;
+    context.shadowColor = "#9fdcf3";
+    context.shadowBlur = 10;
+
+    context.stroke();
+    context.closePath();
   };
+  setInterval(draw, 100);
+
+  // 计算距离春节还有多久
+  getFromHomeDay(thisYearDate.value);
+});
+
+// 随机背景色的索引
+// 随机数改为
+// TODO 待完成
+const indexBgc = ref<number>(1);
+// 随机背景
+const indexBgcFunc = (max: number, min: number) => {
+  return Math.floor(Math.random() * max + min);
+};
 
 
-  // 计算今天过去了多少小时
+/**
+ * @description:  计算今天过去了多少小时
+ * @param {*}
+ * @return {*}
+ * @author: Aliuyanfeng
+ * @Date: 2021-11-023 11:46:06
+ */
+const passHour: number = new Date().getHours();
 
-  const passHour:number = new Date().getHours()
+const passHourPer = (passHour / 24) * 100;
 
-  const passHourPer = (passHour / 24) * 100
+/**
+ * @description:  计算这个月过去了多少天
+ * @param {*}
+ * @return {*}
+ * @author: Aliuyanfeng
+ * @Date: 2021-11-023 11:45:48
+ */
+const currentYear: number = new Date().getFullYear(); //获取今年是几几年
 
+let currentMonth: number = new Date().getMonth(); //获取月份
+currentMonth += 1;
 
-  // 计算这个月过去了多少天
-  const currentYear:number = new Date().getFullYear() //获取今年是几几年
+const passDay: number = new Date().getDate(); //本月是几号
 
-  let currentMonth:number = new Date().getMonth()  //获取月份
-      currentMonth += 1
+const totalDay: number = new Date(currentYear, currentMonth, 0).getDate(); //获取本月有多少天
 
-  const passDay:number = new Date().getDate()  //本月是几号
+const passDayPer = (passDay / totalDay) * 100;
 
-  const totalDay:number = new Date(currentYear,currentMonth,0).getDate()  //获取本月有多少天
+/**
+ * @description: 计算今年过去了多少天
+ * @param {*}
+ * @return {*}
+ * @author: Aliuyanfeng
+ * @Date: 2021-11-06 15:18:48
+ */
 
-  const passDayPer = (passDay / totalDay) * 100
+const passDayByYear = ref<number>(0);
 
-  /**
-   * @description: 计算今年过去了多少天
-   * @param {*}
-   * @return {*}
-   * @author: Aliuyanfeng
-   * @Date: 2021-11-06 15:18:48
-   */
+const passDayByYearPer = ref<number>(0);
 
-  const passDayByYear = ref<number>(0);
+const totalDayByYear = ref<Date>();
 
-  const passDayByYearPer = ref<number>(0)
+totalDayByYear.value = new Date(currentYear, 0); // 获取今年string
 
-  const totalDayByYear = ref<Date>()
+const currentDayByYear = ref<Date>();
 
-    
-  totalDayByYear.value= new Date(currentYear, 0); // 获取今年string  
+currentDayByYear.value = new Date(currentYear, currentMonth - 1, passDay); //获取今年当天的 string
 
-  const currentDayByYear = ref<Date>()
+// 通过前后相减获得时间戳
+passDayByYear.value =
+  (Number(currentDayByYear.value) - Number(totalDayByYear.value)) /
+    (1000 * 60 * 60 * 24) +
+  1;
 
-  currentDayByYear.value = new Date(currentYear, currentMonth-1, passDay); //获取今年当天的 string
+const numDayByYear = ref<number>(0); // 今年总共多少天
 
-  // 通过前后相减获得时间戳
-  passDayByYear.value =(Number(currentDayByYear.value) - Number(totalDayByYear.value)) / (1000 * 60 * 60 * 24) + 1
+numDayByYear.value = Number(totalDayByYear.value);
 
-  const numDayByYear = ref<number>(0) // 今年总共多少天
+if (currentYear % 4 === 0 && currentYear % 100 !== 0 && currentYear % 400 === 0) {
+  numDayByYear.value = 366;
+} else {
+  numDayByYear.value = 365;
+}
 
-  numDayByYear.value = Number(totalDayByYear.value)
-
-  
-  if(currentYear % 4 === 0 && currentYear % 100 !== 0 && currentYear % 400 === 0){
-    numDayByYear.value = 366
-  }else{
-    numDayByYear.value = 365
-  }
-     
-  passDayByYearPer.value = (passDayByYear.value / numDayByYear.value) * 100
-
-  // 计算距离过年还有多少天
-  // 今年是2022-01-31过年
-
-  const thisYearDate = ref<String>('2022-01-31');  //今年春节的日期
-
-  const fromHomeDay = ref<number>(0);  //距离春节还有多少天
-
-  const getFromHomeDay = (data:any) => {
-
-    let endTime = new Date(data)
-    let nowTime = new Date()
-
-    let timeStamp = endTime.getTime() - nowTime.getTime()
-
-    fromHomeDay.value = Math.floor(timeStamp / 1000 / 60 / 60 / 24 )
-  }
+passDayByYearPer.value = (passDayByYear.value / numDayByYear.value) * 100;
 
 
+/**
+ * @description: 计算距离过年还有多少天 今年是2022-01-31过年
+ * @param {*}
+ * @return {*}
+ * @author: Aliuyanfeng
+ * @Date: 2021-11-23 11:47:23
+ */
+
+const thisYearDate = ref<String>("2022-01-31"); //今年春节的日期
+
+const fromHomeDay = ref<number>(0); //距离春节还有多少天
+
+const getFromHomeDay = (data: any) => {
+  let endTime = new Date(data);
+  let nowTime = new Date();
+
+  let timeStamp = endTime.getTime() - nowTime.getTime();
+
+  fromHomeDay.value = Math.floor(timeStamp / 1000 / 60 / 60 / 24);
+};
 </script>
 <style lang="scss" scoped>
 canvas {
@@ -409,7 +442,7 @@ canvas {
   display: flex;
   aside {
     padding-bottom: 15px;
-     width: 300px;
+    width: 300px;
     .aside_box {
       padding: 0 15px;
     }
@@ -438,8 +471,8 @@ canvas {
       }
 
       .aside_text {
-         border-radius: 8px 8px 0 0;
-         padding-bottom: 15px;
+        border-radius: 8px 8px 0 0;
+        padding-bottom: 15px;
         p {
           font-size: 14px;
           margin: 0;
@@ -473,28 +506,27 @@ canvas {
       }
     }
 
-    .aside_progress{
+    .aside_progress {
       background-color: #fff;
       margin-top: 20px;
       border-radius: 8px;
-      .verse_time{
+      .verse_time {
         text-align: center;
         line-height: 44px;
         font-size: 16px;
       }
 
-      ul{
-        border-top: 1px solid rgb(240,240,240);
-        li{
-          
-          p{
+      ul {
+        border-top: 1px solid rgb(240, 240, 240);
+        li {
+          p {
             margin: 0;
           }
         }
       }
     }
   }
-  article{
+  article {
     flex: 1;
     background-color: #fff;
     margin-left: 20px;

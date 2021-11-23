@@ -1,10 +1,21 @@
 # Vue 3 + Typescript + Vite
 
-个人博客vue3+ts+vite构建
+***个人博客vue3+ts+vite构建***
 
-## Recommended IDE Setup
+**运行项目流程**
+- npm install / npm i
+- npm run dev
+- 默认端口8080
+- 默认代理到localhost:3000,本地后台移步[博客后台](https://github.com/Aliuyanfeng/express-blog)
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+# 接口计划表
+|接口路径|方法|参数|是否需要权限|完成情况|备注|
+--------|----|---|:----:|:------:|----------|
+|/getArticleList|get|page|否|😄|首页文章列表
+|/getBaseInfo|get|无|否|😐|首页基础信息接口
+
+
+
 
 ## Type Support For `.vue` Imports in TS
 

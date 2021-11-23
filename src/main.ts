@@ -2,9 +2,8 @@ import { createApp } from 'vue'
 import App from './App.vue'
 
 import router from './router'
-import store from './store'
+import store, { key } from './store'
 
-// 引入antd 组件库
 import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/antd.css';
 
@@ -17,4 +16,8 @@ setGlobalOptions({
 import { Request } from '@/utils/request';
 import VueAxios from 'vue-axios';
 
-createApp(App).use(store).use(router).use(Antd).use(VueAxios,Request.init()).mount('#app')
+
+
+const app = createApp(App)
+
+app.use(store,key).use(router).use(Antd).use(VueAxios,Request.init()).mount('#app')
