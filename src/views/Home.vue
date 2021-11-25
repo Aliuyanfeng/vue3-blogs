@@ -216,7 +216,7 @@ const testService = (params: { data?: Data; dataList?: Data["data"] }) => {
     p["page"] = 1;
   }
   return {
-    url: `/api/getArticleList?${new URLSearchParams(p as any)}`,
+    url: `/getArticleList?${new URLSearchParams(p as any)}`,
   };
 };
 

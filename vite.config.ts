@@ -7,7 +7,7 @@ const fs = require('fs')
 const dotenv = require('dotenv')
 
 const envFiles = [
-  /** default file */ `.env`,
+  /** default file */ `.env.development`,
 ]
 
 for (const file of envFiles) {
@@ -41,7 +41,7 @@ export default defineConfig({
     cors: true,
     proxy: {
         '/api': {
-            target: 'http://localhost:3000',   //代理接口
+            target: 'http://aliuyanfeng.top:3000',   //代理接口
             changeOrigin: true,
             rewrite: (path) => path.replace(/^\/api/, '')
       }

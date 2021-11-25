@@ -1,7 +1,7 @@
 <template>
     <footer>
         <p> Copyright  &copy; <a href="https://beian.miit.gov.cn" target="_blank">黑ICP备2021005861号-1</a> Powered by Aliuyanfeng测试{{testcount}}</p>
-        <button @click="handelout">+++</button>
+        <!-- <button @click="handelout">+++</button> -->
     </footer>
    
 </template>
