@@ -2,9 +2,9 @@
   "name": "vue3-blogs",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite --mode development ",
+    "dev": "vite --mode development",
     "build": "vue-tsc --noEmit && vite build --mode production",
-    "serve": "vite preview"
+    "serve": "vite preview --mode production"
   },
   "dependencies": {
     "@ant-design/icons-vue": "^6.0.1",

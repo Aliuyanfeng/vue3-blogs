@@ -28,7 +28,7 @@
       </div>
 
       <div class="aside_progress">
-        <p class="verse_time">已为陈迹</p>
+        <p class="verse_time">{{aa}}</p>
         <ul class="aside_box">
           <li>
             <p>今天已经过去了{{ passHour }}个小时</p>
@@ -192,6 +192,8 @@ const props = defineProps({
   msg: String,
 });
 
+const aa = ref('')
+aa.value = import.meta.env.VITE_TITLE as string
 // vue-request 文章列表加载更多管理扩展，通过vue-request userLoadMore()管理列表
 // 声明接口返回数据类型
 type Data = {
@@ -216,7 +218,7 @@ const testService = (params: { data?: Data; dataList?: Data["data"] }) => {
     p["page"] = 1;
   }
   return {
-    url: `/getArticleList?${new URLSearchParams(p as any)}`,
+    url: `${import.meta.env.VITE_BASE_API}getArticleList?${new URLSearchParams(p as any)}`,
   };
 };
 
