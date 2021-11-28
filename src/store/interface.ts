@@ -6,6 +6,7 @@ import TestModulesTypes from "./modules/test/interface";
 export default interface RootStateTypes{
     test: string;
     baseInfo: object;
+    isLoading: boolean;
 }
 
 // vuex 所有state类型集成

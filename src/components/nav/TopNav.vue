@@ -1,9 +1,9 @@
 <template>
     <!-- 头部导航 -->
-    <div class="header_nav flex_box">
+    <div class="header_nav flex_box scroll-sup" :class="{'scroll-style':isScroll || isHaveBackground}">
         <!-- 左侧logo -->
         <a href="/" class="home_link flex_box">
-            <img src="@/assets/img/logo.png" alt="">
+            <img src="@/assets/img/logo.png" alt="" v-show="!isScroll && !isHaveBackground">
             <span class="site_name">
             小刘没睡醒呢
             </span>
@@ -19,7 +19,7 @@
                     <a-select-option value="文章">文章</a-select-option>
                     <a-select-option value="标签">标签</a-select-option>
                 </a-select>
-                <a-input style="width: 60%" v-model:value="searchKeywords" @search="onSearch"/>
+                <a-input style="width: 60%" v-model:value="searchKeywords" placeholder="输入你想搜索的内容吧" @search="onSearch"/>
             </a-input-group>
             <!-- 导航 -->
             <ul class="links_list">
@@ -56,7 +56,7 @@
                                 <a href="https://github.com/Aliuyanfeng" target="_blank">Aliuyanfeng</a>
                             </a-menu-item>
                             <a-menu-item key="2">
-                                <a href="https://github.com/Aliuyanfeng/vue3-blogs" target="_blank">项目地址</a>
+                                <a href="https://github.com/Aliuyanfeng/vue3-blogs" target="_blank">{{msg}}</a>
                             </a-menu-item>
                         </a-menu>
                         </template>
@@ -68,10 +68,14 @@
 </template>
 
 <script lang="ts" setup>
-    import {ref} from 'vue'
+    import {ref,onMounted, watch} from 'vue'
     import { BulbFilled,DownOutlined,BulbOutlined} from '@ant-design/icons-vue';
 
-   
+    const props = defineProps({
+        msg: String,
+        isHaveBackground:Boolean
+    });
+
     // 切换灯光模式
     const darkMode = ref<boolean>(false)
 
@@ -88,7 +92,6 @@
         console.log('搜索文章')
     }
 
-
     // 切换搜文章类型
      // 约束下拉菜单
     interface MenuInfo{
@@ -99,6 +102,25 @@
             
         }
     }
+
+    const scroll = ref<number>(0)  //滚动高度
+
+    const isScroll = ref<boolean>(false)  //是否滚动到指定高读
+
+    // 监听滚动高读
+    const handleScroll = () =>{
+        scroll.value = document.documentElement.scrollTop||document.body.scrollTop
+    }
+    watch(scroll,(newVal,oldVal) => {
+        if(scroll.value > 180){
+            isScroll.value = true
+        }else{
+            isScroll.value = false
+        }
+    })
+     onMounted(() => {
+        window.addEventListener('scroll',handleScroll)
+    })
 </script>
 
 <style lang="scss" scoped>
@@ -178,5 +200,11 @@
     }
 
     
+}
+.header_nav.scroll-sup.scroll-style{
+    background-color: #fff;
+}
+.header_nav.scroll-sup.scroll-style :deep(*) {
+    color: #333!important;
 }
 </style>

@@ -134,7 +134,7 @@
 
             <a-list-item-meta description="这是文章的描述">
               <template #title>
-                <a href="https://www.antdv.com/">{{ item.article_title }}</a>
+                <router-link to="articleDetail">{{ item.article_title }}</router-link>
               </template>
               <template #avatar>
                 <a-avatar
@@ -157,30 +157,18 @@
     </article>
   </div>
   <Footer></Footer>
+
+  <Loading :isSuccess="loading"></Loading>
 </template>
 
 <script setup lang="ts">
-import {
-  LikeOutlined,
-  HeartTwoTone,
-  CalendarTwoTone,
-  FireTwoTone,
-  MessageTwoTone,
-  MessageOutlined,
-} from "@ant-design/icons-vue";
+import { LikeOutlined,HeartTwoTone,CalendarTwoTone,FireTwoTone,MessageTwoTone,MessageOutlined,} from "@ant-design/icons-vue";
 
-import {
-  computed,
-  defineComponent,
-  onMounted,
-  ref,
-  watch,
-  defineEmits,
-  SetupContext,
-  reactive
-} from "vue";
+import {computed,defineComponent,onMounted,ref,watch,defineEmits,SetupContext,reactive} from "vue";
 
 import Footer from "../components/footer.vue";
+
+import Loading from '@/components/loading/loading.vue'
 
 import { useLoadMore, useRequest } from "vue-request";
 

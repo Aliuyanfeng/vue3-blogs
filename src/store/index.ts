@@ -14,10 +14,14 @@ export default createStore<RootStateTypes>({
     baseInfo: {
       id:1
     }, //基础信息
+    isLoading:true,
   },
   getters: {},
   mutations: {
-  
+    changeLoadingStatus(state) {
+      console.warn('改变状态',!state.isLoading)
+      state.isLoading = !state.isLoading
+    }
   },
   actions: {
   },

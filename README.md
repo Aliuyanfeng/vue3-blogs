@@ -8,7 +8,7 @@
 - 默认端口8080
 - 默认代理到localhost:3000,本地后台移步[博客后台](https://github.com/Aliuyanfeng/express-blog)
 
-# 接口计划表
+## 接口计划表
 |接口路径|方法|参数|是否需要权限|完成情况|备注|
 --------|----|---|:----:|:------:|----------|
 |/getArticleList|get|page|否|😄|首页文章列表
@@ -17,6 +17,21 @@
 
 
 
-## Type Support For `.vue` Imports in TS
+## 开发计划表
+### 预计完成时间12-05
+- 访客端
+    1. 增加文章查看页 
+    2. 优化样式
+    3. 完善新接口对接工作
+- 服务端
+    1. 增加获取指定文章接口可用于访客端查看文章和总后台编辑文章
+    2. 增加分类表，获取所有分类数据接口
+- 总后台
+    1. 增加获取指定文章接口，对接接口
+    2. 完善开发环境和生产环境的配置
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's `.vue` type support plugin by running `Volar: Switch TS Plugin on/off` from VSCode command palette.
+
+
+
+
+

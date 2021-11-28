@@ -2,6 +2,7 @@ import { createRouter,createWebHashHistory, RouteRecordRaw,createWebHistory } fr
 
 
 const routes = [
+  // 首页
   {
     path: '/',
     name: 'Home',
@@ -11,6 +12,12 @@ const routes = [
     path: '/about',
     name: 'About',
     component: () => import('../views/About.vue')
+  },
+  // 文章详情
+  {
+    path: '/articleDetail',
+    name: 'articleDetail',
+    component: () => import('../views/articleDetail.vue')
   }
 ]
 
