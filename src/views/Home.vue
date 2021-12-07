@@ -199,7 +199,7 @@ type Data = {
 };
 // 对下次url/参数进行计算
 const testService = (params: { data?: Data; dataList?: Data["data"] }) => {
-  const p: any = { limit: 10 };
+  const p: any = { limit: 10 ,type:1};
   if (params?.dataList?.length !== undefined) {
     p["page"] = params.dataList.length / p.limit + 1;
   } else {
