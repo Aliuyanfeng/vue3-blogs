@@ -164,7 +164,7 @@
 <script setup lang="ts">
 import { LikeOutlined,HeartTwoTone,CalendarTwoTone,FireTwoTone,MessageTwoTone,MessageOutlined,} from "@ant-design/icons-vue";
 
-import {computed,defineComponent,onMounted,ref,watch,defineEmits,SetupContext,reactive} from "vue";
+import {computed,defineComponent,onMounted,ref,watch,SetupContext,reactive} from "vue";
 
 import Footer from "../components/footer.vue";
 
@@ -231,7 +231,7 @@ let userInfo = ref<any>()
 const _getBaseInfo = async () => {
   const res = await getBaseInfo();
   // 如果基础信息接口返回成功关闭loading
-  if (res.data.code == 200) {
+  if (res.data.code === 200) {
 
     userInfo.value = res.data.data
 

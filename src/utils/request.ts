@@ -77,7 +77,7 @@ export class Request {
  
                 if (response.status === 200) {
                     // return Promise.resolve(response.data);
-                    return response;
+                    return response.data;
                 } else {
                     Request.errorHandle(response);
                     // return Promise.reject(response.data);
