@@ -7,6 +7,7 @@ export default interface RootStateTypes{
     test: string;
     baseInfo: object;
     isLoading: boolean;
+    allTag:Array<any>
 }
 
 // vuex 所有state类型集成

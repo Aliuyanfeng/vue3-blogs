@@ -22,8 +22,7 @@
         store.commit('testModule/add_count')
     }
 
-    test().then((response: { data: any; }) => {
-        const res: any = response.data
+    test().then((res) => {
         if(res.code === 200){
         }
     })
