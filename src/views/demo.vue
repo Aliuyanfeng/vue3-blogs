@@ -55,7 +55,7 @@ let socket: any = null
 
 const newslist = ref([])
 // 创建客户端 websocket 的实例
-socket = io('http://127.0.0.1:3000')
+socket = io(import.meta.env.VITE_WS_URL as string)
 
 // 建立连接的事件
 socket!.on('connect', () => {

@@ -21,4 +21,4 @@ main {
   padding-top: 75px;
   box-sizing: border-box;
 }
-
+</style>
