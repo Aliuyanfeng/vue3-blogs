@@ -1,4 +1,5 @@
 <template>
+  <TopNav></TopNav>
   <!-- 随机banner -->
   <div class="site_banner">
     <div class="index_title flex_box">
@@ -134,7 +135,7 @@
 
             <a-list-item-meta description="这是文章的描述">
               <template #title>
-                <router-link to="articleDetail">{{ item.article_title }}</router-link>
+                <router-link :to="'/articleDetail/' + item.id">{{ item.article_title }}</router-link>
               </template>
               <template #avatar>
                 <a-avatar
@@ -169,6 +170,8 @@ import {computed,defineComponent,onMounted,ref,watch,SetupContext,reactive} from
 import Footer from "../components/footer.vue";
 
 import Loading from '@/components/loading/loading.vue'
+
+import TopNav from "@/components/nav/TopNav.vue";
 
 import { useLoadMore, useRequest } from "vue-request";
 

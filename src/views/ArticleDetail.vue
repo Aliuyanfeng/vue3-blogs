@@ -11,20 +11,23 @@
         :breadcrumb="{ routes }"
         :ghost="false"
       >
-      <template #tags>
-        <a-tag :color="item.theme_color" v-for="(item,index) in dealTag" :key="index">{{item.classify_name}}</a-tag>
-      </template>
+        <template #tags>
+          <a-tag
+            :color="item['theme_color']"
+            v-for="(item, index) in dealTag"
+            :key="index"
+            >{{ item['classify_name']}}</a-tag
+          >
+        </template>
       </a-page-header>
       <a-card :loading="loading" :title="articleInfo.data.article_description">
-        <div v-html="articleInfo.data.article_content">
-          
-        </div>
+        <div v-html="articleInfo.data.article_content"></div>
       </a-card>
     </a-space>
   </main>
 </template>
 <script lang="ts" setup>
-import { ref, onMounted, onUpdated, onUnmounted, reactive, computed} from "vue";
+import { ref, onMounted, onUpdated, onUnmounted, reactive, computed } from "vue";
 
 import TopNav from "@/components/nav/TopNav.vue";
 
@@ -32,11 +35,15 @@ import Loading from "@/components/loading/loading.vue";
 
 import { getArticleDetail } from "../api/article";
 
-import { getAllTag } from "../api/index"
+import { getAllTag } from "../api/index";
 
-import { useStore } from '@/store'
+import { useStore } from "../store";
 
-const store = useStore()
+import { useRoute } from "vue-router";
+
+const store = useStore();
+
+const router = useRoute();
 
 const loading = ref<boolean>(true);
 
@@ -47,41 +54,50 @@ onMounted(() => {
 });
 
 // 文章标签
-store.dispatch('getAllTag')
+store.dispatch("getAllTag");
 
-const allTag = computed(()=>store.state.allTag)
+const allTag = computed(() => store.state.allTag);
 
 // 文章详情
 interface articleInfoInterface {
-  id?:number,
-  article_title?: string,
-  article_description?:string,
-  article_like?:string,
-  article_read?:string,
-  article_createtime?:string,
-  article_cover?:string,
-  article_tag?:Array<string> | string,
-  article_status?:string,
-  article_content?:string,
-  article_comment?:string,
-  article_author?:string,
+  id?: number;
+  article_title?: string;
+  article_description?: string;
+  article_like?: string;
+  article_read?: string;
+  article_createtime?: string;
+  article_cover?: string;
+  article_tag?: Array<string> | string;
+  article_status?: string;
+  article_content?: string;
+  article_comment?: string;
+  article_author?: string;
 }
 const articleInfo = reactive({ data: <articleInfoInterface>{} });
 
-const dealTag = ref<number>()
+interface dealTagInterface {
+  id?: number;
+  classify_name?: string;
+  theme_color?: string;
+}
+const dealTag = ref<object>({});
 
 const _getArticleDetail = async () => {
-  let formData = { id: 78 };
+  let formData = { id: router.params.id };
   await getArticleDetail(formData).then((res) => {
-    if (res.code === 200) {
-        articleInfo.data = res.data[0];
-        articleInfo.data.article_tag =  articleInfo.data.article_tag.split(',')
-    
-        loading.value = false;
+    if (res.code == 200) {
+      articleInfo.data = res.data[0];
+      var tempTag = articleInfo.data.article_tag?.toString().split(",");
+      tempTag?.map((data) => {
+        dealTag.value = allTag.value.filter((item) => {
+          return tempTag?.includes(item.classify_name);
+        });
+      });
+
+      loading.value = false;
     }
   });
 };
-
 
 const routes = [
   {

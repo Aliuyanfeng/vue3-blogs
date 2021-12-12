@@ -8,6 +8,18 @@ const routes = [
     name: 'Home',
     component: () => import('../views/Home.vue')
   },
+  // demo
+  {
+    path: '/demo',
+    name: 'Demo',
+    component: () => import('../views/demo.vue')
+  },
+  // 房间列表
+  {
+    path: "/roomList",
+    name: "roomList",
+    component:() => import('../views/roomList.vue')
+  },
   {
     path: '/about',
     name: 'About',
@@ -15,7 +27,7 @@ const routes = [
   },
   // 文章详情
   {
-    path: '/articleDetail',
+    path: '/articleDetail/:id',
     name: 'articleDetail',
     component: () => import('../views/articleDetail.vue')
   }

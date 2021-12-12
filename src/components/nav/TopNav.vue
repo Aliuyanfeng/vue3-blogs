@@ -27,6 +27,9 @@
                     <router-link to="/">首页</router-link>
                 </li>
                  <li class="link_item">
+                    <router-link to="/demo">Demo</router-link>
+                </li>
+                 <li class="link_item">
                     <router-link to="/">归档</router-link>
                 </li>
                  <li class="link_item">

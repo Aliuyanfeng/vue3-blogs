@@ -1,6 +1,4 @@
 <template>
-  <TopNav></TopNav>
-
   <router-view></router-view>
 </template>
 
