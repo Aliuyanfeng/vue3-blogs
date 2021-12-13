@@ -2,7 +2,7 @@
   "name": "vue3-blogs",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vue-tsc --noEmit && vite build --mode production",
     "serve": "vite preview --mode production"
   },
@@ -13,11 +13,13 @@
     "dotenv": "^10.0.0",
     "path": "^0.12.7",
     "socket.io-client": "^4.4.0",
+    "videojs-flash": "^2.2.1",
     "vue": "^3.2.13",
     "vue-axios": "^3.4.0",
     "vue-class-component": "^7.2.6",
     "vue-request": "^1.2.3",
     "vue-router": "^4.0.11",
+    "vue-video-player": "^5.0.2",
     "vuex": "^4.0.2",
     "vuex-persistedstate": "^4.1.0"
   },
