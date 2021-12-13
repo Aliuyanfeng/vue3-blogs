@@ -16,11 +16,7 @@ setGlobalOptions({
 import { Request } from '@/utils/request';
 import VueAxios from 'vue-axios';
 
-import 'video.js/dist/video-js.css'
-import 'vue-video-player/src/custom-theme.css'
-import VideoPlayer  from 'vue-video-player/src'
-import 'videojs-flash'
 
 const app = createApp(App)
 
-app.use(store,key).use(router).use(Antd).use(VideoPlayer ).use(VueAxios,Request.init()).mount('#app')
+app.use(store,key).use(router).use(Antd).use(VueAxios,Request.init()).mount('#app')
