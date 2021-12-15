@@ -44,7 +44,7 @@ export default ({ command, mode }) => {
       cors: true,
       proxy: {
           '/api': {
-              // target: 'http://aliuyanfeng.top:3000',   //代理接口
+              // target: 'https://aliuyanfeng.top:3000',   //代理接口
               target:"http://localhost:3000",
               changeOrigin: true,
               rewrite: (path) => path.replace(/^\/api/, '')
