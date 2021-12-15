@@ -7,3 +7,5 @@ declare module '*.vue' {
   export default component
 }
 declare module 'vue-video-player/src'
+
+declare module 'mui-player'
