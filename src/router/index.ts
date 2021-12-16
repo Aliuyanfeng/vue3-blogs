@@ -30,7 +30,19 @@ const routes = [
     path: '/articleDetail/:id',
     name: 'articleDetail',
     component: () => import('../views/articleDetail.vue')
-  }
+  },
+  // 归档
+  {
+    path: '/Archive',
+    name: 'Archive',
+    component: () => import('../views/Archive/Archive.vue')
+  },
+  // 404
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'not-found',
+    component: () => import('../views/error/404.vue')
+  },
 ]
 
 const router = createRouter({

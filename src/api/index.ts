@@ -18,7 +18,7 @@ export function test() {
 
 export function getBaseInfo() {
     return Request.axiosInstance({
-        url: "/getBaseInfo",
+        url: "/index/getBaseInfo",
         method: "get"
     })
 }

@@ -209,7 +209,7 @@ const testService = (params: { data?: Data; dataList?: Data["data"] }) => {
     p["page"] = 1;
   }
   return {
-    url: `${import.meta.env.VITE_BASE_API}getArticleList?${new URLSearchParams(p as any)}`,
+    url: `${import.meta.env.VITE_BASE_API}index/getArticleList?${new URLSearchParams(p as any)}`,
   };
 };
 
@@ -234,9 +234,9 @@ let userInfo = ref<any>()
 const _getBaseInfo = async () => {
   const res = await getBaseInfo();
   // 如果基础信息接口返回成功关闭loading
-  if (res.data.code === 200) {
+  if (res.code === 200) {
 
-    userInfo.value = res.data.data
+    userInfo.value = res.data
 
     setTimeout(() => {
       emit("close-loading");
