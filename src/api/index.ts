@@ -25,7 +25,7 @@ export function getBaseInfo() {
 
 export function getAllTag() {
     return Request.axiosInstance({
-        url: "/admin/getAllCategory",
+        url: "/index/getAllCategory",
         method:"get"
     })
 }

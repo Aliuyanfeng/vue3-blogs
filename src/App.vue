@@ -29,6 +29,8 @@
 
 @import "@/assets/css/reset.css";
 
+@import "@/assets/css/public.css";
+
 #app{
   position: relative;
 }

@@ -1,0 +1,8 @@
+main {
+  width: 1200px;
+  margin: 0 auto;
+  /*background-color: #fff;*/
+  padding-top: 75px;
+  box-sizing: border-box;
+  min-height: calc(100vh - 30px);
+}
