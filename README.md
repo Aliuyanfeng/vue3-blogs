@@ -21,7 +21,7 @@
 |/getArticleDetail|get|id|否|😄|获取文章详情
 |/getAllAuthor|get|无|否|😄|获取所有文章作者
 |/getAllAuthor|get|无|否|😄|获取所有文章作者
-
+|/getAllAuthor|get|无|否|😄|获取所有文章作者|/getAllAuthor|get|无|否|😄|获取所有文章作者|/getAllAuthor|get|无|否|😄|获取所有文章作者
 
 
 
