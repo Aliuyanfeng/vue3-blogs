@@ -22,10 +22,10 @@
         store.commit('testModule/add_count')
     }
 
-    test().then((res) => {
-        if(res.code === 200){
-        }
-    })
+    // test().then((res) => {
+    //     if(res.code === 200){
+    //     }
+    // })
 </script>
 <style lang="scss" scoped>
 footer{
