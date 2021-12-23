@@ -2,6 +2,7 @@ export default  function MapLoader() {
     let aMapScript = document.createElement('script')
     aMapScript.setAttribute('src', 'https://webapi.amap.com/maps?v=1.4.11&key=05fc4f88a4b75ff7ba5673ac8664ecd2&plugin=AMap.CitySearch')
     document.head.appendChild(aMapScript)
+    var AMap:any = null;
     return aMapScript.onload = function() {
         AMap.plugin('AMap.Geolocation', function() {
             var geolocation = new AMap.Geolocation({
@@ -21,13 +22,13 @@ export default  function MapLoader() {
             AMap.event.addListener(geolocation, 'complete', onComplete)
             AMap.event.addListener(geolocation, 'error', onError)
  
-            function onComplete(data) {
+            function onComplete(data:any) {
                 // data是具体的定位信息
                 console.log(data)
                 console.log('123123')
             }
  
-            function onError(data) {
+            function onError(data:any) {
                 console.log(data)
                     // 定位出错
                 console.log('123123s')
