@@ -31,6 +31,13 @@ const routes = [
     // component: () => import('../views/Archive/Archive.vue')
     component:modules['../views/Archive/Archive.vue']
   },
+   // 文章列表
+   {
+    path: '/ArticleList',
+    name: 'ArticleList',
+    // component: () => import('../views/ArticleList/ArticleList.vue')
+    component:modules['../views/ArticleList/ArticleList.vue']
+  },
   // 404
   {
     path: '/:pathMatch(.*)*',
