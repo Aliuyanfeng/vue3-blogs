@@ -3,7 +3,7 @@
   <!-- 随机banner -->
   <div class="site_banner">
     <div class="index_title flex_box">
-      <img src="../assets/img/logo_3.gif" alt="" class="index_gif" />
+      <img src="@/assets/img/logo_3.gif" alt="" class="index_gif" />
       <span>It's My Life</span>
     </div>
   </div>
@@ -167,7 +167,7 @@ import { LikeOutlined,HeartTwoTone,CalendarTwoTone,FireTwoTone,MessageTwoTone,Me
 
 import {computed,defineComponent,onMounted,ref,watch,SetupContext,reactive} from "vue";
 
-import Footer from "../components/footer.vue";
+import Footer from "../../components/footer.vue";
 
 import Loading from '@/components/loading/loading.vue'
 
@@ -447,7 +447,7 @@ canvas {
       .aside_bgc {
         width: 100%;
         height: 200px;
-        background: url("../assets/img/avatar/bgc.jpg");
+        background: url("@/assets/img/avatar/bgc.jpg");
         background-size: cover;
         position: relative;
         background-position: 50% 40%;

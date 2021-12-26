@@ -33,11 +33,11 @@ import TopNav from "@/components/nav/TopNav.vue";
 
 import Loading from "@/components/loading/loading.vue";
 
-import { getArticleDetail } from "../api/article";
+import { getArticleDetail } from "../../api/article";
 
-import { getAllTag } from "../api/index";
+import { getAllTag } from "../../api/index";
 
-import { useStore } from "../store";
+import { useStore } from "../../store";
 
 import { useRoute } from "vue-router";
 
