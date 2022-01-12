@@ -9,6 +9,8 @@
 - 默认代理到localhost:3000,本地后台移步[博客后台](https://github.com/Aliuyanfeng/express-blog)
 
 ## 接口计划表
+
+### 展示端
 |接口路径|方法|参数|是否需要权限|完成情况|备注|
 --------|----|---|:----:|:------:|----------|
 |/getArticleList|get|page,limit,type|否|😄|首页文章列表
@@ -20,9 +22,19 @@
 |/deleteArticle|post|id|否|😄|删除文章
 |/getArticleDetail|get|id|否|😄|获取文章详情
 |/getAllAuthor|get|无|否|😄|获取所有文章作者
+
+### 后台管理
+|接口路径|方法|参数|是否需要权限|完成情况|备注|
+--------|----|---|:----:|:------:|----------|
+|/getArticleList|get|page,limit,type|否|😄|首页文章列表
+|/getBaseInfo|get|无|否|😄|首页基础信息接口
+|/login|get|无|否|😄|测试登录接口后续增加JWT
+|/getInfo|get|无|否|😄|测试获取信息接口
+|/addArticle|post|form|否|😄|添加文章
+|/updateArticle|post|id|否|😄|更新文章
+|/deleteArticle|post|id|否|😄|删除文章
+|/getArticleDetail|get|id|否|😄|获取文章详情
 |/getAllAuthor|get|无|否|😄|获取所有文章作者
-|/getAllAuthor|get|无|否|😄|获取所有文章作者
-|/getAllAuthor|get|无|否|😄|最终测试
 
 
 

@@ -4,9 +4,11 @@
   "scripts": {
     "dev": "vite --host",
     "build": "vue-tsc --noEmit && vite build --mode production",
+    "build:prod": "vite build --mode production",
     "serve": "vite preview --mode production"
   },
   "dependencies": {
+    "@amap/amap-jsapi-loader": "^1.0.1",
     "@ant-design/icons-vue": "^6.0.1",
     "ant-design-vue": "^2.2.8",
     "axios": "^0.24.0",

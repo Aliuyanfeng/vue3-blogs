@@ -33,7 +33,7 @@
                     <router-link to="/Archive">归档</router-link>
                 </li>
                  <li class="link_item">
-                    <router-link to="/">标签</router-link>
+                    <router-link to="/ArticleList">文章</router-link>
                 </li>
                  <li class="link_item">
                     <router-link to="/">笔记</router-link>
@@ -45,7 +45,7 @@
                     <router-link to="/">旅程</router-link>
                 </li>
                  <li class="link_item">
-                    <router-link to="/">友链</router-link>
+                    <router-link to="/">关于我</router-link>
                 </li>
                  <li class="link_item">
                     <a-dropdown>
