@@ -1,6 +1,6 @@
 import { Request } from '@/utils/request';
 
-
+// 测试登陆接口
 export function login(parameter: any) {
     return Request.axiosInstance({
         url: '/test',
@@ -8,21 +8,21 @@ export function login(parameter: any) {
         data: parameter
     })
 }
-
+// 测试接口
 export function test() {
     return Request.axiosInstance({
-        url: '/test',
+        url: '/index/test',
         method: 'get'
     })
 }
-
+// 获取基础信息
 export function getBaseInfo() {
     return Request.axiosInstance({
         url: "/index/getBaseInfo",
         method: "get"
     })
 }
-
+// 获取所有标签
 export function getAllTag() {
     return Request.axiosInstance({
         url: "/index/getAllCategory",

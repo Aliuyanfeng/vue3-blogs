@@ -33,7 +33,8 @@ footer{
     text-align: center;
     height: 30px;
     line-height: 30px;
-    p{
+    p{  
+        margin: 0 auto;
         color: #fff;
         a{
             color: #fff;
