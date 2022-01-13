@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue'
 
 import path from 'path';
 
+import resolveExternalsPlugin  from 'vite-plugin-resolve-externals'
 
 const fs = require('fs')
 
@@ -23,14 +24,19 @@ export default ({ command, mode }) => {
     }
   }
   return defineConfig({
-    base: loadEnv(mode,process.cwd()).VITE_BASE_URL,
+    base: loadEnv(mode,process.cwd()).VITE_BASE_URL,//打包根目录
     build: {
       // target: 'modules',
-      // outDir: 'dist',
+      // outDir: 'dist', //输出目录
       // assetsDir: 'assets',
       // minify: 'terser' // 混淆器
     },
-    plugins: [vue()],
+    plugins: [
+      vue(),
+      resolveExternalsPlugin({
+        AMap:'AMap'
+      })
+    ],
     resolve: {
       alias: {
           // 设置别名

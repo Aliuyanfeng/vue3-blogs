@@ -36,7 +36,7 @@
                     <router-link to="/ArticleList">文章</router-link>
                 </li>
                  <li class="link_item">
-                    <router-link to="/">笔记</router-link>
+                    <router-link to="/Note">笔记</router-link>
                 </li>
                  <li class="link_item">
                     <router-link to="/">生活</router-link>
@@ -73,6 +73,23 @@
 <script lang="ts" setup>
     import {ref,onMounted, watch} from 'vue'
     import { BulbFilled,DownOutlined,BulbOutlined} from '@ant-design/icons-vue';
+
+    // const props = defineProps({ 
+    //     isopen: {
+    //         type: Boolean, //(string也可以是其他你自定义的接口)
+    //         required: true, 
+    //         default: () => false 
+    //     } 
+    // });
+    // defineProps<{
+    //     isopen:boolean  
+    // }>()
+    // interface Props{
+    //     isopen:boolean  
+    // }
+    //  const props = withDefaults(defineProps<Props>(), {
+    //     isopen:false
+    // })
 
     const props = defineProps({
         msg: String,

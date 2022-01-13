@@ -152,25 +152,38 @@ onMounted(() => {
         version: "1.3.2", // Loca 版本，缺省 1.3.2
       },
     })
-      .then((AMap) => {
+      .then((AMap:any) => {
         var map = new AMap.Map("container", {
+          mapStyle: 'amap://styles/fresh', //设置地图的显示样式
+          rotateEnable:true,
+          pitchEnable:true,
           zoom: 11, //级别
+          pitch: 50,
+          rotation: -15,
           // center: [116.397428, 39.90923],                 
           viewMode: "3D",//使用3D视图
           resizeEnable: true, //中心点坐标 
+         
+          
         });
-
-        AMap.plugin(["AMap.ToolBar"], function () {
+        AMap.plugin(["AMap.ToolBar","AMap.ControlBar","AMap.Scale"], function () {
           // 在图面添加工具条控件，工具条控件集成了缩放、平移、定位等功能按钮在内的组合控件
           map.addControl(
             new AMap.ToolBar({
               // 简易缩放模式，默认为 false
-              liteStyle: true,
-            })
+              liteStyle: false,
+            }),
+            new AMap.ControlBar({
+              position:{
+                right:'10px',
+                top:'10px'
+              }
+            }),
+            // new AMap.Scale(),
           );
         });
       })
-      .catch((e) => {
+      .catch((e:any) => {
         console.log(e);
       });
   });

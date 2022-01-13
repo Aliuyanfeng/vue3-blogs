@@ -38,6 +38,13 @@ const routes = [
     // component: () => import('../views/ArticleList/ArticleList.vue')
     component:modules['../views/ArticleList/ArticleList.vue']
   },
+   // 笔记
+  {
+    path: '/Note',
+    name: 'Note',
+    // component: () => import('../views/Note/Note.vue')
+    component:modules['../views/Note/Note.vue']
+  },
   // 404
   {
     path: '/:pathMatch(.*)*',

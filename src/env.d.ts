@@ -9,3 +9,9 @@ declare module '*.vue' {
 declare module 'vue-video-player/src'
 
 declare module 'mui-player'
+
+declare module '@amap/amap-jsapi-loader'
+declare interface Window {
+  AMap: any
+  initAMap: any
+}
