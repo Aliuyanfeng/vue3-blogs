@@ -3,7 +3,7 @@
 
   <Loading :isSuccess="loading" />
 
-  <main>
+  <main class="blog-main">
     <a-space direction="vertical" style="width: 100%">
       <a-page-header
         style="border: 1px solid rgb(235, 237, 240)"

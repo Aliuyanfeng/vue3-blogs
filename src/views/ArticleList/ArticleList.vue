@@ -3,7 +3,7 @@
 
   <Loading :isSuccess="loading" />
 
-  <main>
+  <main class="blog-main">
     
   </main>
   <Footer></Footer>

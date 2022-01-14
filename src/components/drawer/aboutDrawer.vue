@@ -11,15 +11,15 @@
         <a-descriptions-item label="姓名">刘艳峰</a-descriptions-item>
        
         <a-descriptions-item label="期望工作地">哈尔滨、北京</a-descriptions-item>
-        <a-descriptions-item label="备注">暂无</a-descriptions-item>
+        <a-descriptions-item label="备注"> 暂无 </a-descriptions-item>
         <a-descriptions-item label="居住地址"> 暂无 </a-descriptions-item>
        
       </a-descriptions>
       <a-divider />
-       <a-descriptions title="Skill Information">
+       <a-descriptions title="Skill Information" :column="2">
         <a-descriptions-item label="职位">Web前端开发</a-descriptions-item>
-        <a-descriptions-item label="爱好">吉他、美食、Coding</a-descriptions-item>
-        <a-descriptions-item label="备注">暂无</a-descriptions-item>
+        <a-descriptions-item label="爱好">吉他、美食、Coding、追剧</a-descriptions-item>
+      
         <a-descriptions-item label="技能">
             熟练掌握HTML5/ES6/CSS3/JavaScript等前端开发技能,了解Typescript语言;
             <br>
@@ -33,6 +33,12 @@
         <a-descriptions-item label="GitHub">
              <a href="https://github.com/vueComponent/ant-design-vue">
                 github.com/vueComponent/ant-design-vue
+              </a>
+        </a-descriptions-item>
+        <br>
+         <a-descriptions-item label="WebSite">
+             <a href="https://aliuyanfeng.top">
+                https://aliuyanfeng.top
               </a>
         </a-descriptions-item>
       </a-descriptions>

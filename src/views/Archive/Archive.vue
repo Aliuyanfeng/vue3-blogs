@@ -3,7 +3,7 @@
 
   <Loading :isSuccess="loading" />
 
-  <main>
+  <main class="blog-main">
     <a-space direction="vertical">
       <a-card>
         <a-row :gutter="16">
