@@ -8,20 +8,20 @@
       <a-menu theme="light" v-model:selectedKeys="selectedKeys" mode="inline">
         <a-menu-item key="1">
           <pie-chart-outlined />
-          <span>Option 1</span>
+          <span>正则表达式</span>
         </a-menu-item>
         <a-menu-item key="2">
           <desktop-outlined />
-          <span>Option 2</span>
+          <span>CSS3</span>
         </a-menu-item>
         <a-sub-menu key="sub1">
           <template #title>
             <span>
               <user-outlined />
-              <span>User</span>
+              <span>HTML5</span>
             </span>
           </template>
-          <a-menu-item key="3">Tom</a-menu-item>
+          <a-menu-item key="3">SEO</a-menu-item>
           <a-menu-item key="4">Bill</a-menu-item>
           <a-menu-item key="5">Alex</a-menu-item>
         </a-sub-menu>
@@ -29,16 +29,35 @@
           <template #title>
             <span>
               <team-outlined />
-              <span>Team</span>
+              <span>JavaScript</span>
             </span>
           </template>
-          <a-menu-item key="6">Team 1</a-menu-item>
-          <a-menu-item key="8">Team 2</a-menu-item>
+          <a-menu-item key="6">ES6</a-menu-item>
+          <a-menu-item key="8">indexOf</a-menu-item>
         </a-sub-menu>
         <a-menu-item key="9">
           <file-outlined />
-          <span>File</span>
+          <span>插件</span>
         </a-menu-item>
+        <!-- <a-sub-menu key="sub3">
+          <template #title>
+            <span>
+              <team-outlined />
+              <span>infinite</span>
+            </span>
+          </template>
+          <a-menu-item key="10">infinite 1</a-menu-item>
+           <a-sub-menu key="sub4">
+              <template #title>
+                <span>
+                  <team-outlined />
+                  <span>infinite</span>
+                </span>
+              </template>
+              <a-menu-item key="11">infinite 1</a-menu-item>
+              <a-menu-item key="12">infinite 2</a-menu-item>
+            </a-sub-menu>
+        </a-sub-menu> -->
       </a-menu>
     </a-layout-sider>
     <a-layout>
@@ -76,6 +95,14 @@ import Loading from "@/components/loading/loading.vue";
 import Footer from "@/components/footer.vue";
 
 import { useRouter } from "vue-router";
+
+import {
+  PieChartOutlined,
+  DesktopOutlined,
+  UserOutlined,
+  TeamOutlined,
+  FileOutlined,
+} from '@ant-design/icons-vue';
 
 // 加载loding
 const loading = ref<boolean>(false);
