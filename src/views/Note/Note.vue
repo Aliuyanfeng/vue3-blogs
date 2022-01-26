@@ -6,6 +6,15 @@
   <a-layout style="min-height: 100vh">
     <a-layout-sider v-model:collapsed="collapsed" collapsible class="site-layout-background">
       <a-menu theme="light" v-model:selectedKeys="selectedKeys" mode="inline">
+        <div v-for="(item,index) in data.allCategory" :key="item!.id">
+          <template v-if="item.children.length > 0">
+         
+            <a-menu-item :key="item.id">
+              <pie-chart-outlined />
+              <span>正则 {{item!.id}}表达式</span>
+            </a-menu-item>
+          </template>
+        </div>
         <a-menu-item key="1">
           <pie-chart-outlined />
           <span>正则表达式</span>
@@ -86,6 +95,7 @@ import {
   reactive,
   computed,
   nextTick,
+  PropType
 } from "vue";
 
 import TopNav from "@/components/nav/TopNav.vue";
@@ -104,16 +114,36 @@ import {
   FileOutlined,
 } from '@ant-design/icons-vue';
 
+import { getAllNoteCategory } from '@/api/note'
+
+interface InoteCategory{
+  id?:number,
+  name?:string,
+  children?:InoteCategory[]  
+}
 // 加载loding
 const loading = ref<boolean>(false);
 // 是否有背景色
-const isHaveBackground = ref<boolean>(true);
 
 const selectedKeys = ref<string[]>(["1"]);
 
 const collapsed = ref<boolean>(false);
 
-onMounted(() => {});
+const data = reactive({
+    allCategory:Array as PropType<InoteCategory[]>
+})
+
+onMounted(() => {
+  _getAllNoteCategory()  
+});
+
+const _getAllNoteCategory = async () => {
+  await getAllNoteCategory().then(res=>{
+    if(res.code === 200){
+      data.allCategory = res.data
+    }
+  })
+}
 </script>
 <style langt="scss" scoped>
 .ant-layout-header{
