@@ -5,11 +5,12 @@
   </a-layout-header>
   <a-layout style="min-height: 100vh">
     <a-layout-sider v-model:collapsed="collapsed" collapsible class="site-layout-background">
+       
       <a-menu theme="light" v-model:selectedKeys="selectedKeys" mode="inline">
-        <div v-for="(item,index) in data.allCategory" :key="item!.id">
-          <template v-if="item.children.length > 0">
+         <div v-for="(item,index) in data2" :key="item!.id">
+          <template v-if="item.children!.length > 0">
          
-            <a-menu-item :key="item.id">
+            <a-menu-item :key="item!.id">
               <pie-chart-outlined />
               <span>正则 {{item!.id}}表达式</span>
             </a-menu-item>
@@ -119,7 +120,7 @@ import { getAllNoteCategory } from '@/api/note'
 interface InoteCategory{
   id?:number,
   name?:string,
-  children?:InoteCategory[]  
+  children?:InoteCategory[], 
 }
 // 加载loding
 const loading = ref<boolean>(false);
@@ -129,8 +130,10 @@ const selectedKeys = ref<string[]>(["1"]);
 
 const collapsed = ref<boolean>(false);
 
+let data2 = ref<InoteCategory[]>([])
+
 const data = reactive({
-    allCategory:Array as PropType<InoteCategory[]>
+    allCategory:<InoteCategory>[]
 })
 
 onMounted(() => {
@@ -141,6 +144,7 @@ const _getAllNoteCategory = async () => {
   await getAllNoteCategory().then(res=>{
     if(res.code === 200){
       data.allCategory = res.data
+      data2.value = res.data
     }
   })
 }
