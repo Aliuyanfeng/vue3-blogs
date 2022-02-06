@@ -8,66 +8,24 @@
        
       <a-menu theme="light" v-model:selectedKeys="selectedKeys" mode="inline">
          <div v-for="(item,index) in data2" :key="item!.id">
-          <template v-if="item.children!.length > 0">
-         
+          <template v-if="item.children!.length == 0">
             <a-menu-item :key="item!.id">
               <pie-chart-outlined />
-              <span>正则 {{item!.id}}表达式</span>
+              <span>{{item!.name}}</span>
             </a-menu-item>
           </template>
-        </div>
-        <a-menu-item key="1">
-          <pie-chart-outlined />
-          <span>正则表达式</span>
-        </a-menu-item>
-        <a-menu-item key="2">
-          <desktop-outlined />
-          <span>CSS3</span>
-        </a-menu-item>
-        <a-sub-menu key="sub1">
-          <template #title>
-            <span>
-              <user-outlined />
-              <span>HTML5</span>
-            </span>
-          </template>
-          <a-menu-item key="3">SEO</a-menu-item>
-          <a-menu-item key="4">Bill</a-menu-item>
-          <a-menu-item key="5">Alex</a-menu-item>
-        </a-sub-menu>
-        <a-sub-menu key="sub2">
-          <template #title>
-            <span>
-              <team-outlined />
-              <span>JavaScript</span>
-            </span>
-          </template>
-          <a-menu-item key="6">ES6</a-menu-item>
-          <a-menu-item key="8">indexOf</a-menu-item>
-        </a-sub-menu>
-        <a-menu-item key="9">
-          <file-outlined />
-          <span>插件</span>
-        </a-menu-item>
-        <!-- <a-sub-menu key="sub3">
-          <template #title>
-            <span>
-              <team-outlined />
-              <span>infinite</span>
-            </span>
-          </template>
-          <a-menu-item key="10">infinite 1</a-menu-item>
-           <a-sub-menu key="sub4">
+          <template v-else>
+            <a-sub-menu :key="item!.id">
               <template #title>
                 <span>
-                  <team-outlined />
-                  <span>infinite</span>
+                  <user-outlined />
+                  <span>{{item!.name}}</span>
                 </span>
               </template>
-              <a-menu-item key="11">infinite 1</a-menu-item>
-              <a-menu-item key="12">infinite 2</a-menu-item>
+              <a-menu-item v-for="(item2,index2) in item!.children" :key="item2!.id">{{item2!.name}}</a-menu-item>
             </a-sub-menu>
-        </a-sub-menu> -->
+          </template>
+        </div>
       </a-menu>
     </a-layout-sider>
     <a-layout>
@@ -126,7 +84,7 @@ interface InoteCategory{
 const loading = ref<boolean>(false);
 // 是否有背景色
 
-const selectedKeys = ref<string[]>(["1"]);
+const selectedKeys = ref<string>();
 
 const collapsed = ref<boolean>(false);
 
