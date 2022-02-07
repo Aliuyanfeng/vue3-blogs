@@ -22,7 +22,17 @@
                   <span>{{item!.name}}</span>
                 </span>
               </template>
-              <a-menu-item v-for="(item2,index2) in item!.children" :key="item2!.id">{{item2!.name}}</a-menu-item>
+              
+              <div v-for="(item2,index2) in item!.children" :key="item2!.id">
+                <template v-if="item2.children!.length == 0">
+                  <a-menu-item :key="item2.id">{{item2!.name}}</a-menu-item>
+                </template>
+                <template v-else>
+                  <a-sub-menu :key="item2!.id" :title="item2!.name">
+                    <a-menu-item v-for="(item3,index3) in item2!.children" :key="item3!.id">{{item3.name}}</a-menu-item>
+                  </a-sub-menu>
+                </template>
+              </div>
             </a-sub-menu>
           </template>
         </div>
