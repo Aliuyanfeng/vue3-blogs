@@ -7,3 +7,12 @@ export function getAllNoteCategory() {
         method: "get",
     })
 }
+
+// 获取分类下的所有笔记
+export function getClassifyNote(data:any) {
+    return Request.axiosInstance({
+        url: "/index/getNote",
+        method: "post",
+        data
+    })
+}

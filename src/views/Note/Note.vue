@@ -6,7 +6,7 @@
   <a-layout style="min-height: 100vh">
     <a-layout-sider v-model:collapsed="collapsed" collapsible class="site-layout-background">
        
-      <a-menu theme="light" v-model:selectedKeys="selectedKeys" mode="inline">
+      <a-menu theme="light" v-model:selectedKeys="selectedKeys" mode="inline"  @click="_getClassifyNote">
          <div v-for="(item,index) in data2" :key="item!.id">
           <template v-if="item.children!.length == 0">
             <a-menu-item :key="item!.id">
@@ -47,7 +47,11 @@
           <a-breadcrumb-item>options1</a-breadcrumb-item>
         </a-breadcrumb>
         <div :style="{ padding: '24px', background: '#fff', minHeight: '360px' }">
-          Bill is a cat.
+          <ul>
+          <li v-for="item,index in noteList">
+            <div v-html="item.note_html"></div>
+          </li>
+          </ul>
         </div>
       </a-layout-content>
     </a-layout>
@@ -64,7 +68,8 @@ import {
   reactive,
   computed,
   nextTick,
-  PropType
+  PropType,
+  VNodeChild
 } from "vue";
 
 import TopNav from "@/components/nav/TopNav.vue";
@@ -83,29 +88,46 @@ import {
   FileOutlined,
 } from '@ant-design/icons-vue';
 
-import { getAllNoteCategory } from '@/api/note'
+import { getAllNoteCategory, getClassifyNote } from '@/api/note'
 
 interface InoteCategory{
   id?:number,
   name?:string,
   children?:InoteCategory[], 
 }
+interface MenuInfo {
+  key: string;
+  keyPath: string[];
+  item: VNodeChild;
+  domEvent: MouseEvent;
+}
+interface InoteItem{
+  id?:number,
+  create_time?:string,
+  note_classify_id?:string,
+  note_html?:string,
+  note_md?:string,
+  note_name?:string, 
+}
 // 加载loding
 const loading = ref<boolean>(false);
 // 是否有背景色
 
-const selectedKeys = ref<string>();
+const selectedKeys = ref<string[]>([]);
 
 const collapsed = ref<boolean>(false);
 
-let data2 = ref<InoteCategory[]>([])
+const data2 = ref<InoteCategory[]>([])
+
+const noteList = ref<InoteItem[]>([])
 
 const data = reactive({
-    allCategory:<InoteCategory>[]
+    allCategory:<InoteCategory>[],
 })
 
 onMounted(() => {
   _getAllNoteCategory()  
+  // _getClassifyNote()
 });
 
 const _getAllNoteCategory = async () => {
@@ -113,6 +135,16 @@ const _getAllNoteCategory = async () => {
     if(res.code === 200){
       data.allCategory = res.data
       data2.value = res.data
+    }
+  })
+}
+
+const _getClassifyNote = async (e: MenuInfo) =>{
+  let formdata = {id:e.key,type:2}
+  getClassifyNote(formdata).then(res =>{
+    if(res.code === 200){
+      noteList.value = res.data
+      console.error(noteList.value)
     }
   })
 }
