@@ -144,6 +144,9 @@
 </script>
 
 <style lang="scss" scoped>
+ul,ol{
+    list-style: none;
+}
 .header_nav{
     width: 100%;
     height: 3.6rem;

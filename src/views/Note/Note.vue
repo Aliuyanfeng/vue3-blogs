@@ -46,12 +46,20 @@
           <a-breadcrumb-item>笔记</a-breadcrumb-item>
           <a-breadcrumb-item>options1</a-breadcrumb-item>
         </a-breadcrumb>
-        <div :style="{ padding: '24px', background: '#fff', minHeight: '360px' }">
-          <ul>
-          <li v-for="item,index in noteList">
-            <div v-html="item.note_html"></div>
-          </li>
+        <div :style="{ padding: '24px', background: '#fff', minHeight: '360px' }" >
+          <ul v-if="selectedKeys.length > 0 && noteList.length > 0 " class="note-list">
+            <li v-for="item,index in noteList">
+              <div class="markdown-body" v-html="item.note_html"></div>
+            </li>
           </ul>
+           <a-result title="Great, we have done all the operations!" v-else>
+              <template #icon>
+                <smile-twoTone />
+              </template>
+              <template #extra>
+                <a-button type="primary">Next</a-button>
+              </template>
+            </a-result>
         </div>
       </a-layout-content>
     </a-layout>
@@ -60,6 +68,7 @@
   <Footer></Footer>
 </template>
 <script setup lang="ts">
+import 'github-markdown-css'
 import {
   ref,
   onMounted,
@@ -86,6 +95,7 @@ import {
   UserOutlined,
   TeamOutlined,
   FileOutlined,
+  SmileTwoTone
 } from '@ant-design/icons-vue';
 
 import { getAllNoteCategory, getClassifyNote } from '@/api/note'
@@ -150,6 +160,9 @@ const _getClassifyNote = async (e: MenuInfo) =>{
 }
 </script>
 <style langt="scss" scoped>
+.note-list{
+    list-style: none;
+}
 .ant-layout-header{
   line-height: inherit;
   height: 57px;
