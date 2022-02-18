@@ -111,7 +111,7 @@
           </div>
         </template>
         <template #renderItem="{ item }">
-          <a-list-item key="item.article_title">
+          <a-list-item :key="item.article_title">
             <template #actions>
               <a
                 ><CalendarTwoTone :style="{ marginRight: '0.5rem' }" />{{
@@ -119,7 +119,7 @@
                 }}</a
               >
               <!-- <a><HeartTwoTone twoToneColor="#eb2f96" /></a> -->
-              <a><MessageTwoTone /></a>
+              <a v-if="item.article_comment == 1"><MessageTwoTone /></a>
               <a><LikeOutlined twoToneColor="#52c41a" /></a>
               <a><FireTwoTone twoToneColor="red" /></a>
             </template>
@@ -133,7 +133,7 @@
               />
             </template>
 
-            <a-list-item-meta description="这是文章的描述">
+            <a-list-item-meta >
               <template #title>
                 <router-link :to="'/articleDetail/' + item.id">{{ item.article_title }}</router-link>
               </template>
@@ -141,6 +141,11 @@
                 <a-avatar
                   src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
                 />
+              </template>
+              <template #description>
+                <div class="txt-hidden-1">
+                  {{item.article_description}}
+                </div>
               </template>
             </a-list-item-meta>
 
@@ -176,6 +181,15 @@ import TopNav from "@/components/nav/TopNav.vue";
 import { useLoadMore, useRequest } from "vue-request";
 
 import { getBaseInfo } from "@/api/index";
+
+import { useStore } from "../../store";
+
+import { useRoute } from "vue-router";
+
+const store = useStore();
+
+const router = useRoute();
+
 // emit 子组件出发父组件事件
 const emit = defineEmits(["close-loading"]);
 // 父组件传值获取办法
@@ -250,6 +264,10 @@ const res = useRequest(_getBaseInfo, {
   ready: computed(() => loading.value),
 });
 
+// 获取全部标签
+store.dispatch("getAllTag");
+
+const allTag = computed(() => store.state.allTag);
 
 onMounted(() => {
   // 绘制心电图

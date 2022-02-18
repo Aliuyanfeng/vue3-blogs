@@ -16,17 +16,19 @@
             :color="item['theme_color']"
             v-for="(item, index) in dealTag"
             :key="index"
-            >{{ item['classify_name']}}</a-tag
+            >{{ item["classify_name"] }}</a-tag
           >
         </template>
       </a-page-header>
       <a-card :loading="loading" :title="articleInfo.data.article_description">
-        <div v-html="articleInfo.data.article_content"></div>
+        <div class="markdown-body" v-html="articleInfo.data.article_content"></div>
       </a-card>
     </a-space>
   </main>
 </template>
 <script lang="ts" setup>
+import "github-markdown-css";
+
 import { ref, onMounted, onUpdated, onUnmounted, reactive, computed } from "vue";
 
 import TopNav from "@/components/nav/TopNav.vue";
@@ -53,8 +55,7 @@ onMounted(() => {
   _getArticleDetail();
 });
 
-// 文章标签
-store.dispatch("getAllTag");
+
 
 const allTag = computed(() => store.state.allTag);
 
@@ -80,7 +81,7 @@ interface dealTagInterface {
   classify_name?: string;
   theme_color?: string;
 }
-const dealTag = ref<object>({});
+const dealTag = ref({});
 
 const _getArticleDetail = async () => {
   let formData = { id: router.params.id };
