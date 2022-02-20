@@ -42,7 +42,7 @@
                     <router-link to="/">生活</router-link>
                 </li>
                  <li class="link_item">
-                    <router-link to="/">旅程</router-link>
+                    <router-link to="/">题库</router-link>
                 </li>
                  <li class="link_item">
                     <router-link to="/">关于我</router-link>

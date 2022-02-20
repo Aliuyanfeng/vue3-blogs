@@ -44,7 +44,7 @@
         <a-breadcrumb style="margin: 16px 0">
           <a-breadcrumb-item>首页</a-breadcrumb-item>
           <a-breadcrumb-item>笔记</a-breadcrumb-item>
-          <a-breadcrumb-item>options1</a-breadcrumb-item>
+          <a-breadcrumb-item>{{isNoteName}}</a-breadcrumb-item>
         </a-breadcrumb>
         <div :style="{ padding: '24px', background: '#fff', minHeight: '360px' }" >
           <ul v-if="selectedKeys.length > 0 && noteList.length > 0 " class="note-list">
@@ -52,12 +52,9 @@
               <div class="markdown-body" v-html="item.note_html"></div>
             </li>
           </ul>
-           <a-result title="Great, we have done all the operations!" v-else>
+           <a-result title="嗨, 来记一笔吧!" v-else>
               <template #icon>
                 <smile-twoTone />
-              </template>
-              <template #extra>
-                <a-button type="primary">Next</a-button>
               </template>
             </a-result>
         </div>
@@ -123,23 +120,26 @@ interface InoteItem{
 const loading = ref<boolean>(false);
 // 是否有背景色
 
-const selectedKeys = ref<string[]>([]);
+const selectedKeys = ref<string[]>([]); //选择的分类key
 
-const collapsed = ref<boolean>(false);
+const collapsed = ref<boolean>(false); //左侧导航是否展开
 
-const data2 = ref<InoteCategory[]>([])
+const data2 = ref<InoteCategory[]>([]); //分类导航列表
 
-const noteList = ref<InoteItem[]>([])
+const noteList = ref<InoteItem[]>([]); //分类导航列表(无用)
 
 const data = reactive({
-    allCategory:<InoteCategory>[],
+    allCategory:<InoteCategory>[],//分类导航列表(无用)
 })
+
+const isNoteName = ref<string>(''); //选择的分类名称
 
 onMounted(() => {
   _getAllNoteCategory()  
   // _getClassifyNote()
 });
 
+// 获取所有导航分类
 const _getAllNoteCategory = async () => {
   await getAllNoteCategory().then(res=>{
     if(res.code === 200){
@@ -149,12 +149,13 @@ const _getAllNoteCategory = async () => {
   })
 }
 
+// 获取指定分类下的笔记
 const _getClassifyNote = async (e: MenuInfo) =>{
+  isNoteName.value = (e.domEvent.target as HTMLElement).innerText
   let formdata = {id:e.key,type:2}
   getClassifyNote(formdata).then(res =>{
     if(res.code === 200){
       noteList.value = res.data
-      console.error(noteList.value)
     }
   })
 }
