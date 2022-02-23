@@ -3,7 +3,7 @@
   <a-layout-header class="header">
     <TopNav :isHaveBackground="true" />
   </a-layout-header>
-  <a-layout style="min-height: 100vh">
+  <a-layout style="min-height: calc(100vh - 87px)">
     <a-layout-sider v-model:collapsed="collapsed" collapsible class="site-layout-background">
        
       <a-menu theme="light" v-model:selectedKeys="selectedKeys" mode="inline"  @click="_getClassifyNote">
