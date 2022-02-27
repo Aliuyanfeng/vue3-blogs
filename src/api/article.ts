@@ -8,3 +8,12 @@ export function getArticleDetail(data:object) {
         data:data
     })
 }
+
+// 获取文章列表
+export function getArticleList(query:object) {
+    return Request.axiosInstance({
+        url: "/index/getArticleList",
+        method: "get",
+        params:query
+    })
+}

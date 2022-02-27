@@ -4,7 +4,7 @@
   <div class="site_banner">
     <div class="index_title flex_box">
       <img src="@/assets/img/logo_3.gif" alt="" class="index_gif" />
-      <span>It's My Life</span>
+      <span>Don't look back.</span>
     </div>
   </div>
 
@@ -16,20 +16,20 @@
         <div class="aside_bgc"></div>
         <div class="aside_avatar aside_box">
           <img src="@/assets/img/avatar/avatar.jpg" alt="" class="avatar" />
-          <span class="username">{{userInfo?.blog_title}}</span>
+          <span class="username">{{ userInfo?.blog_title }}</span>
         </div>
         <div class="aside_box">
           <canvas id="canvas" ref="canvas"></canvas>
         </div>
         <div class="aside_text aside_box">
-          <p>{{userInfo?.blog_descrption}}</p>
+          <p>{{ userInfo?.blog_descrption }}</p>
           <!-- <p>我们走在街上，遇到的是一群死人和另一群死人。</p>
           <p>而他们看起来就像活着一样，就像活着一样。</p> -->
         </div>
       </div>
 
       <div class="aside_progress">
-        <p class="verse_time">{{aa}}</p>
+        <p class="verse_time">{{ aa }}</p>
         <ul class="aside_box">
           <li>
             <p>今天已经过去了{{ passHour }}个小时</p>
@@ -121,7 +121,9 @@
               <!-- <a><HeartTwoTone twoToneColor="#eb2f96" /></a> -->
               <a v-if="item.article_comment == 1"><MessageTwoTone /></a>
               <a><LikeOutlined twoToneColor="#52c41a" /></a>
-              <a><FireTwoTone twoToneColor="red" /></a>
+              <a v-if="item.article_importance == 3"
+                ><FireTwoTone twoToneColor="red"
+              /></a>
             </template>
 
             <template #extra>
@@ -133,9 +135,11 @@
               />
             </template>
 
-            <a-list-item-meta >
+            <a-list-item-meta>
               <template #title>
-                <router-link :to="'/articleDetail/' + item.id">{{ item.article_title }}</router-link>
+                <router-link :to="'/articleDetail/' + item.id">{{
+                  item.article_title
+                }}</router-link>
               </template>
               <template #avatar>
                 <a-avatar
@@ -144,19 +148,17 @@
               </template>
               <template #description>
                 <div class="txt-hidden-1">
-                  {{item.article_description}}
+                  {{ item.article_description }}
                 </div>
               </template>
             </a-list-item-meta>
 
-            <a-tag color="pink">pink</a-tag>
-            <a-tag color="red">red</a-tag>
-            <a-tag color="orange">orange</a-tag>
-            <a-tag color="green">Vue</a-tag>
-            <a-tag color="cyan">Vue</a-tag>
-            <a-tag color="blue">blue</a-tag>
-            <a-tag color="purple">purple</a-tag>
-            <a-tag color="black">置顶</a-tag>
+            <a-tag color="black" v-if="item.article_importance == 3">置顶</a-tag>
+            <a-tag
+              :color="parseColor(tagItem)"
+              v-for="(tagItem, index) in item.article_tag.split(',')"
+              >{{ tagItem }}</a-tag
+            >
           </a-list-item>
         </template>
       </a-list>
@@ -168,13 +170,28 @@
 </template>
 
 <script setup lang="ts">
-import { LikeOutlined,HeartTwoTone,CalendarTwoTone,FireTwoTone,MessageTwoTone,MessageOutlined,} from "@ant-design/icons-vue";
+import {
+  LikeOutlined,
+  HeartTwoTone,
+  CalendarTwoTone,
+  FireTwoTone,
+  MessageTwoTone,
+  MessageOutlined,
+} from "@ant-design/icons-vue";
 
-import {computed,defineComponent,onMounted,ref,watch,SetupContext,reactive} from "vue";
+import {
+  computed,
+  defineComponent,
+  onMounted,
+  ref,
+  watch,
+  SetupContext,
+  reactive,
+} from "vue";
 
 import Footer from "../../components/footer.vue";
 
-import Loading from '@/components/loading/loading.vue'
+import Loading from "@/components/loading/loading.vue";
 
 import TopNav from "@/components/nav/TopNav.vue";
 
@@ -197,9 +214,9 @@ const props = defineProps({
   msg: String,
 });
 
-const aa = ref('')
+const aa = ref("");
 
-aa.value = import.meta.env.VITE_TITLE as string
+aa.value = import.meta.env.VITE_TITLE as string;
 // vue-request 文章列表加载更多管理扩展，通过vue-request userLoadMore()管理列表
 // 声明接口返回数据类型
 type Data = {
@@ -217,14 +234,16 @@ type Data = {
 };
 // 对下次url/参数进行计算
 const testService = (params: { data?: Data; dataList?: Data["data"] }) => {
-  const p: any = { limit: 10 ,type:1};
+  const p: any = { limit: 10, type: 1 };
   if (params?.dataList?.length !== undefined) {
     p["page"] = params.dataList.length / p.limit + 1;
   } else {
     p["page"] = 1;
   }
   return {
-    url: `${import.meta.env.VITE_BASE_API}index/getArticleList?${new URLSearchParams(p as any)}`,
+    url: `${import.meta.env.VITE_BASE_API}index/getArticleList?${new URLSearchParams(
+      p as any
+    )}`,
   };
 };
 
@@ -244,14 +263,13 @@ const {
 // 计算是否还有更多数据
 const noMore = computed(() => dataList.value.length === data.value?.total);
 
-let userInfo = ref<any>()
+let userInfo = ref<any>();
 
 const _getBaseInfo = async () => {
   const res = await getBaseInfo();
   // 如果基础信息接口返回成功关闭loading
   if (res.code === 200) {
-
-    userInfo.value = res.data
+    userInfo.value = res.data;
 
     setTimeout(() => {
       emit("close-loading");
@@ -268,6 +286,39 @@ const res = useRequest(_getBaseInfo, {
 store.dispatch("getAllTag");
 
 const allTag = computed(() => store.state.allTag);
+
+const parseColor = (text: string) => {
+  switch (text) {
+    case "Vue":
+      return "#41B883";
+      break;
+    case "JavaScript":
+      return "#FDE87F";
+      break;
+    case "HTML":
+      return "#E44C27";
+      break;
+    case "CSS":
+      return "#264EE4";
+      break;
+    case "Node.js":
+      return "Node.js";
+      break;
+    case "前端":
+      return "blue";
+      break;
+    case "后端":
+      return "blue";
+      break;
+    case "转载":
+      return "#909399";
+      break;
+
+    default:
+      return "#909399";
+      break;
+  }
+};
 
 onMounted(() => {
   // 绘制心电图
@@ -323,7 +374,6 @@ const indexBgc = ref<number>(1);
 const indexBgcFunc = (max: number, min: number) => {
   return Math.floor(Math.random() * max + min);
 };
-
 
 /**
  * @description:  计算今天过去了多少小时
@@ -392,7 +442,6 @@ if (currentYear % 4 === 0 && currentYear % 100 !== 0 && currentYear % 400 === 0)
 
 passDayByYearPer.value = (passDayByYear.value / numDayByYear.value) * 100;
 
-
 /**
  * @description: 计算距离过年还有多少天 今年是2022-01-31过年
  * @param {*}
@@ -401,7 +450,7 @@ passDayByYearPer.value = (passDayByYear.value / numDayByYear.value) * 100;
  * @Date: 2021-11-23 11:47:23
  */
 
-const thisYearDate = ref<String>("2022-01-31"); //今年春节的日期
+const thisYearDate = ref<String>("2023-01-21"); //今年春节的日期
 
 const fromHomeDay = ref<number>(0); //距离春节还有多少天
 
@@ -457,6 +506,10 @@ canvas {
     width: 300px;
     .aside_box {
       padding: 0 15px;
+      li {
+        list-style: none;
+        padding: 10px 0;
+      }
     }
     .aside_header {
       background-color: #fff;
@@ -526,6 +579,7 @@ canvas {
         text-align: center;
         line-height: 44px;
         font-size: 16px;
+        margin: 0;
       }
 
       ul {
