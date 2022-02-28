@@ -15,9 +15,9 @@
         <template class="ant-card-actions" #actions>
           <FireOutlined  :style="{color:'red'}"/>
           <LikeOutlined :style="{color:'#1890FF'}"/>
-          <ShareAltOutlined />
+          <ShareAltOutlined @click="copyShareUrl(item)"/>
         </template>
-        <a-card-meta :title="item.article_title">
+        <a-card-meta :title="item?.article_title">
           <template #avatar>
             <a-avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
           </template>
@@ -62,6 +62,7 @@ import { message } from "ant-design-vue";
 
 import { FireOutlined, LikeOutlined, ShareAltOutlined } from '@ant-design/icons-vue';
 
+import { articleInfoInterface } from '@/interface/article'
 // 加载loding
 const loading = ref<boolean>(false);
 // 是否有背景色
@@ -84,7 +85,7 @@ const articleData = reactive({
   total:0,
   limit:10,
   page:1,
-  list:<any>[]
+  list:<articleInfoInterface>[]
 })
 
 // 获取文章
@@ -107,6 +108,11 @@ const _getArticleList = async () =>{
 const onChange = (pageNum:number) => {
   articleData.page = pageNum
   _getArticleList()
+}
+
+// 复制分享链接
+const copyShareUrl = (article:articleInfoInterface) =>{
+
 }
 </script>
 <style lang="scss" scoped>
@@ -131,6 +137,7 @@ const onChange = (pageNum:number) => {
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    margin-top: 15px;
   }
   
 }
