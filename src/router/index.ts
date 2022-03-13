@@ -60,6 +60,20 @@ const routes = [
       }
     }
   },
+  // 题库
+  {
+    path: '/questionBank',
+    name: 'QuestionBank',
+    component: modules['../views/QuestionBank/QuestionBank.vue'],
+    meta: { title: '题库' },
+  },
+  // 答题页
+  {
+    path: "/exam",
+    name: 'Exam',
+    component: modules['../views/QuestionBank/Exam.vue'],
+    meta: { title: '答题页' },
+  },
   // 404
   {
     path: '/:pathMatch(.*)*',

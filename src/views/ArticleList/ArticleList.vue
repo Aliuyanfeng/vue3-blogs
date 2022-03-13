@@ -5,7 +5,7 @@
 
   <main class="blog-main">
     <div class="article-container">
-      <a-card hoverable style="width: 290px" class="artice-item" v-for="(item,index) in articleData.list">
+      <a-card hoverable style="width: 290px" class="artice-item" v-for="(item,index) in (articleData.list)" :key="item.id">
         <template #cover>
           <img
             alt="example"
@@ -17,7 +17,7 @@
           <LikeOutlined :style="{color:'#1890FF'}"/>
           <ShareAltOutlined @click="copyShareUrl(item)"/>
         </template>
-        <a-card-meta :title="item?.article_title">
+        <a-card-meta :title="item.article_title" @click="jumpArticleDetail(item)">
           <template #avatar>
             <a-avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
           </template>
@@ -58,7 +58,7 @@ import { useRouter } from "vue-router";
 
 import { getArticleList } from '@/api/article';
 
-import { message } from "ant-design-vue";
+import { message,notification } from "ant-design-vue";
 
 import { FireOutlined, LikeOutlined, ShareAltOutlined } from '@ant-design/icons-vue';
 
@@ -68,6 +68,7 @@ const loading = ref<boolean>(false);
 // 是否有背景色
 const isHaveBackground = ref<boolean>(true);
 
+const router = useRouter()
 
 onMounted(() => {
  _getArticleList()
@@ -85,7 +86,7 @@ const articleData = reactive({
   total:0,
   limit:10,
   page:1,
-  list:<articleInfoInterface>[]
+  list:Array as unknown as articleInfoInterface[]
 })
 
 // 获取文章
@@ -105,14 +106,39 @@ const _getArticleList = async () =>{
 }
 
 // 分页器change 事件
-const onChange = (pageNum:number) => {
-  articleData.page = pageNum
+const onChange = (...rest:Event[]) => {
+  articleData.page = rest[0] as unknown as number
   _getArticleList()
 }
 
 // 复制分享链接
 const copyShareUrl = (article:articleInfoInterface) =>{
+  let oInput = document.createElement("input");
+  oInput.value = `${import.meta.env.VITE_BASE_API}articleDetail/${article.id}`;
+  document.body.appendChild(oInput);
+  oInput.select(); // 选择对象;
+  // document.execCommand("Copy"); // 执行浏览器复制命令 即将被弃用
+  navigator.clipboard.writeText(oInput.value).then(function() {
+      notification.success({
+        message: '复制成功',
+        description:
+          '不同浏览器有差异性,建议使用Google浏览器访问',
+      });
+  }, function() {
+     notification.success({
+        message: '复制失败',
+        description:
+          '不同浏览器有差异性,建议使用Google浏览器访问',
+      });
+  });
+  oInput.remove();
+}
 
+// 跳转文章详情、
+const jumpArticleDetail = (article:articleInfoInterface) =>{
+  router.push({
+    path:`/articleDetail/${article.id}`
+  })
 }
 </script>
 <style lang="scss" scoped>

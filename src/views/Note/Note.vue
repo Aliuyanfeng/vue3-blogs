@@ -6,7 +6,7 @@
   <a-layout style="min-height: calc(100vh - 87px)">
     <a-layout-sider v-model:collapsed="collapsed" collapsible class="site-layout-background">
        
-      <a-menu theme="light" v-model:selectedKeys="selectedKeys" mode="inline"  @click="_getClassifyNote">
+      <a-menu theme="light" v-model:selectedKeys="selectedKeys" mode="inline"  @click="_getClassifyNote($event as MenuInfo)">
          <div v-for="(item,index) in data2" :key="item!.id">
           <template v-if="item.children!.length == 0">
             <a-menu-item :key="item!.id">
@@ -135,8 +135,7 @@ const data = reactive({
 const isNoteName = ref<string>(''); //选择的分类名称
 
 onMounted(() => {
-  _getAllNoteCategory()  
-  // _getClassifyNote()
+  _getAllNoteCategory()
 });
 
 // 获取所有导航分类
@@ -153,7 +152,7 @@ const _getAllNoteCategory = async () => {
 const _getClassifyNote = async (e: MenuInfo) =>{
   isNoteName.value = (e.domEvent.target as HTMLElement).innerText
   let formdata = {id:e.key,type:2}
-  getClassifyNote(formdata).then(res =>{
+  await getClassifyNote(formdata).then(res =>{
     if(res.code === 200){
       noteList.value = res.data
     }

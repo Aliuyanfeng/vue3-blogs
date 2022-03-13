@@ -42,7 +42,7 @@
                     <router-link to="/">生活</router-link>
                 </li>
                  <li class="link_item">
-                    <router-link to="/">题库</router-link>
+                    <router-link to="/QuestionBank">题库</router-link>
                 </li>
                  <li class="link_item">
                     <router-link to="/">关于我</router-link>
@@ -54,7 +54,7 @@
                         <DownOutlined />
                         </a>
                         <template #overlay>
-                        <a-menu @click="gitClick">
+                        <a-menu @click="gitClick($event as MenuInfo)">
                             <a-menu-item key="1">
                                 <a href="https://github.com/Aliuyanfeng" target="_blank">Aliuyanfeng</a>
                             </a-menu-item>
