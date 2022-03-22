@@ -9,13 +9,14 @@
   </div>
 
   <!-- 主要内容 -->
-  <div class="main_container">
+  <div class="main_container" v-cloak>
     <!-- 侧栏内容 -->
     <aside>
       <div class="aside_header">
         <div class="aside_bgc"></div>
         <div class="aside_avatar aside_box">
-          <img src="@/assets/img/avatar/avatar.jpg" alt="" class="avatar" />
+          <img :src="userInfo?.blog_avatar" alt="" class="avatar"  v-if="userInfo?.blog_avatar"/>
+          <img src="@/assets/img/avatar/avatar.jpg" alt="" class="avatar" v-else />
           <span class="username">{{ userInfo?.blog_title }}</span>
         </div>
         <div class="aside_box">
@@ -23,8 +24,8 @@
         </div>
         <div class="aside_text aside_box">
           <p>{{ userInfo?.blog_descrption }}</p>
-          <!-- <p>我们走在街上，遇到的是一群死人和另一群死人。</p>
-          <p>而他们看起来就像活着一样，就像活着一样。</p> -->
+          <!-- <p>我们走在街上，遇到的是一群死人和另一群死人。</p> -->
+          <!-- <p>我们看起来就像活着一样，就像活着一样。</p> -->
         </div>
       </div>
 
@@ -270,7 +271,7 @@ const _getBaseInfo = async () => {
   // 如果基础信息接口返回成功关闭loading
   if (res.code === 200) {
     userInfo.value = res.data;
-
+    thisYearDate.value = res.data.blog_springFestivalDate
     setTimeout(() => {
       emit("close-loading");
     }, 2000);
