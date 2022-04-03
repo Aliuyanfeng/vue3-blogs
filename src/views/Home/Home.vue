@@ -131,7 +131,15 @@
                 width="272"
                 height="130"
                 alt="logo"
+                :src="item.article_cover"
+                v-if="item.article_cover!=''"
+              />
+              <img
+                width="272"
+                height="130"
+                alt="logo"
                 src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                v-else
               />
             </template>
 
