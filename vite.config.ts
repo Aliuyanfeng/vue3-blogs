@@ -34,7 +34,8 @@ export default ({ command, mode }) => {
     plugins: [
       vue(),
       resolveExternalsPlugin({
-        AMap:'AMap'
+        AMap: 'AMap',
+        returnCitySN: 'returnCitySN'
       })
     ],
     resolve: {
@@ -49,12 +50,18 @@ export default ({ command, mode }) => {
       open: true,
       cors: true,
       proxy: {
-          '/api': {
-              // target: 'https://aliuyanfeng.top:3000',   //代理接口
-              target:"http://localhost:3000",
-              changeOrigin: true,
-              rewrite: (path) => path.replace(/^\/api/, '')
-        }
+        '/api': {
+            // target: 'https://aliuyanfeng.top:3000',   //代理接口
+            target:"http://localhost:3000",
+            changeOrigin: true,
+            rewrite: (path) => path.replace(/^\/api/, '')
+        },
+        '/getIp': {
+          // https://pv.sohu.com/cityjson?ie=utf-8
+          target:"https://pv.sohu.com",
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\//, '')
+      }
       }
     },
     

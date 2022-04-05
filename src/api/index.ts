@@ -29,3 +29,11 @@ export function getAllTag() {
         method:"get"
     })
 }
+//点赞
+export function submitLike(data:any) {
+    return Request.axiosInstance({
+        url: "/index/submitLikeBiuBiuBiu",
+        method: "POST",
+        data:data
+    })
+}

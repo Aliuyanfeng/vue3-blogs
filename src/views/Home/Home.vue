@@ -121,7 +121,7 @@
               >
               <!-- <a><HeartTwoTone twoToneColor="#eb2f96" /></a> -->
               <a v-if="item.article_comment == 1"><MessageTwoTone /></a>
-              <a><LikeOutlined twoToneColor="#52c41a" /></a>
+              <a @click="giveYouLike(item)"><LikeOutlined twoToneColor="#52c41a" /></a>
               <a v-if="item.article_importance == 3"
                 ><FireTwoTone twoToneColor="red"
               /></a>
@@ -188,6 +188,8 @@ import {
   MessageOutlined,
 } from "@ant-design/icons-vue";
 
+import { notification } from "ant-design-vue";
+
 import {
   computed,
   defineComponent,
@@ -206,11 +208,21 @@ import TopNav from "@/components/nav/TopNav.vue";
 
 import { useLoadMore, useRequest } from "vue-request";
 
-import { getBaseInfo } from "@/api/index";
+import { Data, articleItem } from '@/interface/article'
 
-import { useStore } from "../../store";
+import { getBaseInfo, submitLike } from "@/api/index";
+
+import { mapState, mapActions, mapMutations } from "vuex";
+
+import { useStore } from '@/store'
 
 import { useRoute } from "vue-router";
+
+import returnCitySN from 'returnCitySN'
+
+import * as sysTool from "@/utils/system";
+
+import { useState, useMutations, useGetters, useActions } from '@/utils/vuexHooks'
 
 const store = useStore();
 
@@ -226,21 +238,9 @@ const props = defineProps({
 const aa = ref("");
 
 aa.value = import.meta.env.VITE_TITLE as string;
+
 // vue-request 文章列表加载更多管理扩展，通过vue-request userLoadMore()管理列表
-// 声明接口返回数据类型
-type Data = {
-  data: {
-    id: number;
-    article_title: string;
-    article_description: string;
-    article_createtime: string;
-    article_like: number;
-    article_read: number;
-    article_tag: string;
-    article_cover: string;
-  }[];
-  total: number;
-};
+
 // 对下次url/参数进行计算
 const testService = (params: { data?: Data; dataList?: Data["data"] }) => {
   const p: any = { limit: 10, type: 1 };
@@ -272,6 +272,7 @@ const {
 // 计算是否还有更多数据
 const noMore = computed(() => dataList.value.length === data.value?.total);
 
+// 个人信息
 let userInfo = ref<any>();
 
 const _getBaseInfo = async () => {
@@ -291,8 +292,78 @@ const res = useRequest(_getBaseInfo, {
   ready: computed(() => loading.value),
 });
 
+// 点赞 MODULE START
+const likeInfo = reactive({ 
+  ip: 0,
+  address: '',
+  os: '',
+  browser: '',
+  article_id: '',
+  c_id: ''
+})
+
+const brower = sysTool.GetCurrentBrowser();
+const os = sysTool.GetOs();
+
+//获取IP用于点赞评论时提交
+likeInfo.ip = returnCitySN.cip
+likeInfo.address = returnCitySN.cname
+likeInfo.c_id = returnCitySN.cid
+likeInfo.os = os
+likeInfo.browser = brower
+
+// 通过封装辅助函数HOOKS
+const {getAllTag,updateDevice} = useActions({
+  getAllTag: 'getAllTag',
+  updateDevice: 'deviceModule/updateDevice'
+})
+
+const deviceInfo:any = useState({
+  ip: (state: any) => state.deviceModule.ip,
+  os: (state: any) => state.deviceModule.os,
+  address: (state: any) => state.deviceModule.address,
+  browser: (state: any) => state.deviceModule.browser,
+  a_id: (state: any) => state.deviceModule.a_id
+})
+
+// 更新设备信息存储到全局
+// store.dispatch('deviceModule/updateDevice',likeInfo) //dispatch 方式直接调用异步action
+updateDevice(likeInfo)
+
+// 点赞函数
+const giveYouLike = async (item: articleItem) =>{
+  let {ip:{value:ipValue}, 
+      os:{value:osValue}, 
+      address:{value:addressValue}, 
+      browser:{value:browserValue}, 
+      a_id:{value:aidValue}} = deviceInfo
+  let res = await submitLike({
+    article_id:item.id,
+    ip:ipValue,
+    os:osValue,
+    address:addressValue,
+    browser:browserValue,
+    a_id:aidValue
+  })
+  if(res.code === 200){
+    notification.success({
+      message: res.info,
+      duration: 2.5
+    });
+  }else{
+    notification.error({
+      message: res.info,
+      duration: 2.5
+    });
+  }
+}
+
+// 点赞 MODULE END
+
+
 // 获取全部标签
-store.dispatch("getAllTag");
+// store.dispatch("getAllTag"); //通过dispatch 调用异步action
+getAllTag() //封装的useAction 调用
 
 const allTag = computed(() => store.state.allTag);
 

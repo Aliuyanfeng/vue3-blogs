@@ -8,6 +8,9 @@ import {getAllTag} from '@/api/index'
 // 引入测试子模块
 import testModule from './modules/test'
 
+// 引入设备信息模块 
+import deviceModule from './modules/device'
+
 export default createStore<RootStateTypes>({
 
   plugins: [createPersistedState()],
@@ -17,7 +20,7 @@ export default createStore<RootStateTypes>({
       id:1
     }, //基础信息
     isLoading: true,
-    allTag:[]
+    allTag: [],
   },
   getters: {},
   mutations: {
@@ -44,7 +47,8 @@ export default createStore<RootStateTypes>({
     }
   },
   modules: {
-    testModule
+    testModule,
+    deviceModule
   }
 })
 

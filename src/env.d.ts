@@ -15,3 +15,4 @@ declare interface Window {
   AMap: any
   initAMap: any
 }
+declare module 'returnCitySN';

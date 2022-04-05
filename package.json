@@ -16,6 +16,7 @@
     "echarts": "^5.2.2",
     "github-markdown-css": "^5.1.0",
     "highlight.js": "^11.4.0",
+    "ip": "^1.1.5",
     "mui-player": "^1.6.0",
     "path": "^0.12.7",
     "socket.io-client": "^4.4.0",

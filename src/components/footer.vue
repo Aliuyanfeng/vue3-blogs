@@ -14,6 +14,8 @@
 
     const store = useStore()
 
+    const testState = computed(()=>store.state.testModule)
+
     const testname = computed(()=>store.state.testModule.name)
 
     const testcount = computed(()=>store.state.testModule.count)

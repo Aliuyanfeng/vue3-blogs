@@ -39,6 +39,11 @@ export default defineComponent({
     const isCloseAboutDrawer = ()=>{
       isOpenAboutDrawer.value = false
     }
+
+    let aMapScript = document.createElement('script')
+    aMapScript.setAttribute('src', 'https://pv.sohu.com/cityjson?ie=utf-8')
+    document.head.appendChild(aMapScript)
+
     return {
       openDrawer,
       isOpenAboutDrawer,
