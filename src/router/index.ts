@@ -97,6 +97,10 @@ router.beforeEach((to, from) => {
   if (to.meta.title) {
     (<any>document).title = to.meta.title
   }
+
+})
+router.afterEach((to, from) => {
+ console.log(from)
 })
 
 

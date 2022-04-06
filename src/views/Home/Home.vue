@@ -228,18 +228,23 @@ const store = useStore();
 
 const router = useRoute();
 
-// emit 子组件出发父组件事件
+//#region 定义  emit 子组件出发父组件事件
 const emit = defineEmits(["close-loading"]);
-// 父组件传值获取办法
+//#endregion
+
+//#region 父组件传值获取办法示例
 const props = defineProps({
   msg: String,
 });
+//#endregion
 
+//#region 测试通过环境变量取值
 const aa = ref("");
 
 aa.value = import.meta.env.VITE_TITLE as string;
+//#endregion
 
-// vue-request 文章列表加载更多管理扩展，通过vue-request userLoadMore()管理列表
+//#region vue-request 文章列表加载更多管理扩展，通过vue-request userLoadMore()管理列表
 
 // 对下次url/参数进行计算
 const testService = (params: { data?: Data; dataList?: Data["data"] }) => {
@@ -271,8 +276,10 @@ const {
 
 // 计算是否还有更多数据
 const noMore = computed(() => dataList.value.length === data.value?.total);
+//#endregion
 
-// 个人信息
+//#region 个人信息模块
+//  个人信息 START
 let userInfo = ref<any>();
 
 const _getBaseInfo = async () => {
@@ -292,6 +299,10 @@ const res = useRequest(_getBaseInfo, {
   ready: computed(() => loading.value),
 });
 
+// 个人信息 END
+//#endregion
+
+//#region  点赞模块
 // 点赞 MODULE START
 const likeInfo = reactive({ 
   ip: 0,
@@ -359,9 +370,10 @@ const giveYouLike = async (item: articleItem) =>{
 }
 
 // 点赞 MODULE END
+//#endregion
 
-
-// 获取全部标签
+//#region  处理标签模块
+// 处理标签 START
 // store.dispatch("getAllTag"); //通过dispatch 调用异步action
 getAllTag() //封装的useAction 调用
 
@@ -399,6 +411,10 @@ const parseColor = (text: string) => {
       break;
   }
 };
+
+// 处理标签 END
+//#endregion
+
 
 onMounted(() => {
   // 绘制心电图
@@ -446,7 +462,7 @@ onMounted(() => {
   getFromHomeDay(thisYearDate.value);
 });
 
-// 随机背景色的索引
+//#region 随机背景色的索引
 // 随机数改为
 // TODO 待完成
 const indexBgc = ref<number>(1);
@@ -454,13 +470,15 @@ const indexBgc = ref<number>(1);
 const indexBgcFunc = (max: number, min: number) => {
   return Math.floor(Math.random() * max + min);
 };
+//#endregion
 
+//#region 计算左侧时间列表
 /**
  * @description:  计算今天过去了多少小时
  * @param {*}
  * @return {*}
  * @author: Aliuyanfeng
- * @Date: 2021-11-023 11:46:06
+ * @Date: 2021-11-23 11:46:06
  */
 const passHour: number = new Date().getHours();
 
@@ -542,6 +560,9 @@ const getFromHomeDay = (data: any) => {
 
   fromHomeDay.value = Math.floor(timeStamp / 1000 / 60 / 60 / 24);
 };
+
+//#endregion
+
 </script>
 <style lang="scss" scoped>
 canvas {
