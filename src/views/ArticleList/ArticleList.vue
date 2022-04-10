@@ -114,7 +114,7 @@ const onChange = (...rest:Event[]) => {
 // 复制分享链接
 const copyShareUrl = (article:articleInfoInterface) =>{
   let oInput = document.createElement("input");
-  oInput.value = `${import.meta.env.VITE_BASE_API}articleDetail/${article.id}`;
+  oInput.value = `${import.meta.env.VITE_BASE_API}#/articleDetail/${article.id}`;
   document.body.appendChild(oInput);
   oInput.select(); // 选择对象;
   // document.execCommand("Copy"); // 执行浏览器复制命令 即将被弃用

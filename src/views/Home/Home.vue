@@ -210,7 +210,7 @@ import { useLoadMore, useRequest } from "vue-request";
 
 import { Data, articleItem } from '@/interface/article'
 
-import { getBaseInfo, submitLike } from "@/api/index";
+import { getBaseInfo, submitLike, isVisitorWithWebSite } from "@/api/index";
 
 import { mapState, mapActions, mapMutations } from "vuex";
 
@@ -336,6 +336,11 @@ const deviceInfo:any = useState({
   browser: (state: any) => state.deviceModule.browser,
   a_id: (state: any) => state.deviceModule.a_id
 })
+const {ip:{value:ipValue}, 
+      os:{value:osValue}, 
+      address:{value:addressValue}, 
+      browser:{value:browserValue}, 
+      a_id:{value:aidValue}} = deviceInfo
 
 // 更新设备信息存储到全局
 // store.dispatch('deviceModule/updateDevice',likeInfo) //dispatch 方式直接调用异步action
@@ -343,11 +348,6 @@ updateDevice(likeInfo)
 
 // 点赞函数
 const giveYouLike = async (item: articleItem) =>{
-  let {ip:{value:ipValue}, 
-      os:{value:osValue}, 
-      address:{value:addressValue}, 
-      browser:{value:browserValue}, 
-      a_id:{value:aidValue}} = deviceInfo
   let res = await submitLike({
     article_id:item.id,
     ip:ipValue,
@@ -415,7 +415,25 @@ const parseColor = (text: string) => {
 // 处理标签 END
 //#endregion
 
-
+//#region  访客记录
+  const addVisitor = async ()=>{
+    await isVisitorWithWebSite({
+      ip:ipValue,
+      os:osValue,
+      address:addressValue,
+      browser:browserValue,
+      a_id:aidValue
+    }).then(res=>{
+      if(res.code === 200){
+        window.sessionStorage.setItem('isVisitor','true')
+      }
+    })
+  }
+  const isVisitor = window.sessionStorage.getItem('isVisitor')
+  if(!isVisitor) {
+    addVisitor()
+  }
+//#endregion
 onMounted(() => {
   // 绘制心电图
   const canvas: any = document.getElementById("canvas");

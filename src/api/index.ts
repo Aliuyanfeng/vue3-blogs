@@ -37,3 +37,12 @@ export function submitLike(data:any) {
         data:data
     })
 }
+
+// 添加访客记录
+export function isVisitorWithWebSite(data: any) {
+    return Request.axiosInstance({
+        url: "/index/isVisitorWithWebSite",
+        method: "POST",
+        data:data
+    })
+}
