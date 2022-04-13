@@ -121,7 +121,7 @@
               >
               <!-- <a><HeartTwoTone twoToneColor="#eb2f96" /></a> -->
               <a v-if="item.article_comment == 1"><MessageTwoTone /></a>
-              <a @click="giveYouLike(item)"><LikeOutlined twoToneColor="#52c41a" /></a>
+              <a @click="giveYouLike(item)"><LikeOutlined twoToneColor="#52c41a" />{{item.article_like}}</a>
               <a v-if="item.article_importance == 3"
                 ><FireTwoTone twoToneColor="red"
               /></a>
