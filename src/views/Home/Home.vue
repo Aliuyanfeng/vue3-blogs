@@ -1,13 +1,16 @@
 <template>
   <TopNav></TopNav>
   <!-- 随机banner -->
-  <a-carousel :after-change="onChange" :autoplay="true">
-    <div class="site_banner" :style="{backgroundImage: `url(${item})`}" v-for="item,index in bannerArray" :key="index">
-      <div class="index_title flex_box">
-        <img src="@/assets/img/logo_3.gif" alt="" class="index_gif" />
-        <span>Don't look back.</span>
+  <a-carousel :after-change="onChangeBanner" :autoplay="true" effect="fade">
+    <div v-for="item,index in bannerArray" :key="index">
+      <div class="site_banner" :style="{'backgroundImage': 'url(' + item + ')'}" >
+        <div class="index_title flex_box">
+          <img src="@/assets/img/logo_3.gif" alt="" class="index_gif" v-if="userInfo.blog_gif_show == 1" />
+          <span>{{userInfo.blog_subtitle}}</span>
+        </div>
       </div>
     </div>
+   
   </a-carousel>
   
 
@@ -284,7 +287,7 @@ const noMore = computed(() => dataList.value.length === data.value?.total);
 //#region 个人信息模块
 //  个人信息 START
 let userInfo = ref<any>();
-
+// banner 数组
 const bannerArray = ref<string[]>([]);
 
 const _getBaseInfo = async () => {
@@ -305,6 +308,10 @@ const res = useRequest(_getBaseInfo, {
   ready: computed(() => loading.value),
 });
 
+// banner 切换事件
+const onChangeBanner = (current: number) => {
+  console.log(current);
+}
 // 个人信息 END
 //#endregion
 
@@ -608,11 +615,11 @@ canvas {
     top: 50%;
     transform: translate(-50%, -50%);
     align-items: center;
-	display: none;
+	  // display: none;
     span {
       font-weight: 700;
       font-size: 38px;
-      font-family: fantasy;
+      font-family: cursive;
       letter-spacing: 5px;
     }
   }
