@@ -1,5 +1,5 @@
 <template>
-  <TopNav></TopNav>
+  <TopNav @search-article="_searchArticle"></TopNav>
   <!-- 随机banner -->
   <a-carousel :after-change="onChangeBanner" :autoplay="true" effect="fade">
     <div v-for="item,index in bannerArray" :key="index">
@@ -218,6 +218,8 @@ import { Data, articleItem } from '@/interface/article'
 
 import { getBaseInfo, submitLike, isVisitorWithWebSite } from "@/api/index";
 
+import { searchArticle } from '@/api/article'
+
 import { mapState, mapActions, mapMutations } from "vuex";
 
 import { useStore } from '@/store'
@@ -282,6 +284,14 @@ const {
 
 // 计算是否还有更多数据
 const noMore = computed(() => dataList.value.length === data.value?.total);
+
+//文章模糊搜索
+const _searchArticle = async (val:string) => {
+  console.error(val)
+  await searchArticle({
+    keyword:val
+  })
+}
 //#endregion
 
 //#region 个人信息模块
@@ -310,7 +320,7 @@ const res = useRequest(_getBaseInfo, {
 
 // banner 切换事件
 const onChangeBanner = (current: number) => {
-  console.log(current);
+  
 }
 // 个人信息 END
 //#endregion

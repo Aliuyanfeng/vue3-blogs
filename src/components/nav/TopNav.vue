@@ -19,7 +19,7 @@
                     <a-select-option value="文章">文章</a-select-option>
                     <a-select-option value="标签">标签</a-select-option>
                 </a-select>
-                <a-input style="width: 60%" v-model:value="searchKeywords" placeholder="输入你想搜索的内容吧" @search="onSearch"/>
+                <a-input-search style="width: 60%" v-model:value="searchKeywords" placeholder="输入你想搜索的内容吧" @search="onSearch"/>
             </a-input-group>
             <!-- 导航 -->
             <ul class="links_list">
@@ -96,6 +96,8 @@
         isHaveBackground:Boolean
     });
 
+    const emits = defineEmits(['search-article'])
+
     // 切换灯光模式
     const darkMode = ref<boolean>(false)
 
@@ -110,6 +112,7 @@
 
     const onSearch = () => {
         console.log('搜索文章')
+        emits('search-article', searchKeywords.value)
     }
 
     // 切换搜文章类型
