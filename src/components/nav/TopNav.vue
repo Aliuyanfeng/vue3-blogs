@@ -11,16 +11,31 @@
         <!-- 右侧导航 -->
         <div class="links">
             <!-- 一键切换黑暗模式 -->
-            <BulbOutlined :style="{fontSize: '18px', lineHeight: '25px',marginRight: '1.5rem'}" v-if="darkMode" @click="changeMode"/>
-            <BulbFilled :style="{fontSize: '18px', lineHeight: '25px',marginRight: '1.5rem'}" v-else @click="changeMode"/>
+            <!-- <BulbOutlined :style="{fontSize: '18px', lineHeight: '25px',marginRight: '1.5rem'}" v-if="darkMode" @click="changeMode"/>
+            <BulbFilled :style="{fontSize: '18px', lineHeight: '25px',marginRight: '1.5rem'}" v-else @click="changeMode"/> -->
             <!-- 文章搜索按钮 -->
-            <a-input-group compact>
+            <!-- <a-input-group compact>
                 <a-select v-model:value="searchType">
                     <a-select-option value="文章">文章</a-select-option>
                     <a-select-option value="标签">标签</a-select-option>
                 </a-select>
                 <a-input-search style="width: 60%" v-model:value="searchKeywords" placeholder="输入你想搜索的内容吧" @search="onSearch"/>
-            </a-input-group>
+            </a-input-group> -->
+
+            <a-select
+                v-model="searchKeywords"
+                show-search
+                placeholder="输入你想搜索的内容吧"
+                style="width: 200px"
+                :default-active-first-option="false"
+                :show-arrow="false"
+                :filter-option="false"
+                :not-found-content="null"
+                :options="searchData"
+                @search="handleSearch"
+                @change="handleChange"
+            >
+            </a-select>
             <!-- 导航 -->
             <ul class="links_list">
                 <li class="link_item">
@@ -59,7 +74,7 @@
                                 <a href="https://github.com/Aliuyanfeng" target="_blank">Aliuyanfeng</a>
                             </a-menu-item>
                             <a-menu-item key="2">
-                                <a href="https://github.com/Aliuyanfeng/vue3-blogs" target="_blank">{{msg}}</a>
+                                <a href="https://github.com/Aliuyanfeng/vue3-blogs" target="_blank">{{msg}}项目地址</a>
                             </a-menu-item>
                         </a-menu>
                         </template>
@@ -72,8 +87,14 @@
 
 <script lang="ts" setup>
     import {ref,onMounted, watch} from 'vue'
+
     import { BulbFilled,DownOutlined,BulbOutlined} from '@ant-design/icons-vue';
 
+    import { searchArticle } from '@/api/article'
+
+    import { useRouter } from "vue-router";
+
+    const router = useRouter();
     // const props = defineProps({ 
     //     isopen: {
     //         type: Boolean, //(string也可以是其他你自定义的接口)
@@ -106,15 +127,54 @@
     }
 
     // 搜索文章
-    const searchType = ref<string[]>(['标签'])
+    // const searchType = ref<string[]>(['标签'])
     
     const searchKeywords = ref<string>('')
 
-    const onSearch = () => {
-        console.log('搜索文章')
-        emits('search-article', searchKeywords.value)
+    // const onSearch = () => {
+    //     console.log('搜索文章')
+    //     emits('search-article', searchKeywords.value)
+    // }
+    
+    // 搜索数据
+    const searchData = ref<any[]>([]);
+
+    let timeout:any
+    // 触发搜索
+    const handleSearch = async (val: string) => {
+        searchKeywords.value = val;
+        if (timeout) {
+            clearTimeout(timeout);
+            timeout = null;
+        }
+
+        timeout = setTimeout(_searchArticle, 300);
+    };
+    
+     //文章模糊搜索
+    const _searchArticle = async () => {
+        await searchArticle({
+            keyword: searchKeywords.value
+        }).then(d=>{
+            const result = d.data;
+            searchData.value = []
+            result.forEach((r: any) => {
+                searchData.value.push({
+                    value: r['id'],
+                    label: r['article_title'],
+                });
+            });
+        })
     }
 
+    const handleChange = (val: string) => {
+
+        searchKeywords.value = val;
+
+        router.push({
+            path:`/articleDetail/${val}`
+        })
+    };
     // 切换搜文章类型
      // 约束下拉菜单
     interface MenuInfo{

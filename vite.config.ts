@@ -1,5 +1,17 @@
-import { defineConfig,loadEnv} from 'vite'
+import { defineConfig, loadEnv } from 'vite'
+
 import vue from '@vitejs/plugin-vue'
+
+import { visualizer } from 'rollup-plugin-visualizer';
+
+import viteCompression  from 'vite-plugin-compression'
+
+import viteImagemin from 'vite-plugin-imagemin'
+
+import {
+  createStyleImportPlugin,
+  AndDesignVueResolve,
+} from 'vite-plugin-style-import'
 
 import path from 'path';
 
@@ -26,17 +38,79 @@ export default ({ command, mode }) => {
   return defineConfig({
     base: loadEnv(mode,process.cwd()).VITE_BASE_URL,//打包根目录
     build: {
-      // target: 'modules',
+      target: 'esnext',
       // outDir: 'dist', //输出目录
       // assetsDir: 'assets',
       // minify: 'terser' // 混淆器
+      terserOptions: {
+        // 生产环境下移除console
+        compress: {
+          drop_console: true,
+          drop_debugger: true
+        }
+      },
+    },
+    css: {
+      preprocessorOptions: {
+        less: {
+          javascriptEnabled: true,
+        },
+      },
     },
     plugins: [
       vue(),
       resolveExternalsPlugin({
         AMap: 'AMap',
         returnCitySN: 'returnCitySN'
-      })
+      }),
+      visualizer(),
+      viteCompression({
+        ext: '.gz',//gz br
+        algorithm: 'gzip', //brotliCompress gzip
+        deleteOriginFile:true
+      }),
+      viteImagemin({
+        gifsicle: {
+          optimizationLevel: 7,
+          interlaced: false
+        },
+        optipng: {
+          optimizationLevel: 7
+        },
+        mozjpeg: {
+          quality: 20
+        },
+        pngquant: {
+          quality: [0.8, 0.9],
+          speed: 4
+        },
+        svgo: {
+          plugins: [
+            {
+              name: 'removeViewBox'
+            },
+            {
+              name: 'removeEmptyAttrs',
+              active: false
+            }
+          ]
+        }
+      }),
+      createStyleImportPlugin({
+        resolves: [
+          AndDesignVueResolve(),
+        ],
+        libs: [
+          // If you don’t have the resolve you need, you can write it directly in the lib, or you can provide us with PR
+          {
+            libraryName: 'ant-design-vue',
+            esModule: true,
+            resolveStyle: (name) => {
+              return `ant-design-vue/es/${name}/style/index`
+            },
+          },
+        ],
+      }),
     ],
     resolve: {
       alias: {

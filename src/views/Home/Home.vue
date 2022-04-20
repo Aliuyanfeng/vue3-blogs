@@ -224,7 +224,7 @@ import { mapState, mapActions, mapMutations } from "vuex";
 
 import { useStore } from '@/store'
 
-import { useRoute } from "vue-router";
+import { useRouter } from "vue-router";
 
 import returnCitySN from 'returnCitySN'
 
@@ -234,7 +234,7 @@ import { useState, useMutations, useGetters, useActions } from '@/utils/vuexHook
 
 const store = useStore();
 
-const router = useRoute();
+const router = useRouter();
 
 //#region 定义  emit 子组件出发父组件事件
 const emit = defineEmits(["close-loading"]);

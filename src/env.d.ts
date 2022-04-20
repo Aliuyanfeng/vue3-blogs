@@ -16,3 +16,7 @@ declare interface Window {
   initAMap: any
 }
 declare module 'returnCitySN';
+
+declare module 'vite-plugin-compress'
+
+declare module 'vite-plugin-compression'
