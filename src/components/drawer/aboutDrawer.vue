@@ -54,7 +54,7 @@
   </div>
 </template>
 <script lang="ts">
-import ADescriptionsItem from "ant-design-vue";
+// import ADescriptionsItem from "ant-design-vue";
 import {
   defineComponent,
   ref,
@@ -67,7 +67,7 @@ import {
 
 export default defineComponent({
   components: {
-    ADescriptionsItem,
+    // ADescriptionsItem,
   },
   props: {
     isopen: {

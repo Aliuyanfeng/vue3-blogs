@@ -39,8 +39,8 @@ import { io } from 'socket.io-client'
 
 import { message, notification } from "ant-design-vue";
 
-import 'mui-player/dist/mui-player.min.css'
-import MuiPlayer from 'mui-player'
+// import 'mui-player/dist/mui-player.min.css'
+// import MuiPlayer from 'mui-player'
 
 interface commentList {
   username?: string,
@@ -51,11 +51,11 @@ interface commentList {
 
 
 // video
-var mp = new MuiPlayer({
-    container:'#mui-player',
-    title:'标题',
-    src:'blob:https://xdlumia.github.io/9cf0fb9b-7f36-423d-a850-122819523d6a',
-})
+// var mp = new MuiPlayer({
+//     container:'#mui-player',
+//     title:'标题',
+//     src:'blob:https://xdlumia.github.io/9cf0fb9b-7f36-423d-a850-122819523d6a',
+// })
 
 // socket 服务
 const value = ref<string>('');

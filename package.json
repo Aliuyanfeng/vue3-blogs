@@ -21,6 +21,7 @@
     "path": "^0.12.7",
     "socket.io-client": "^4.4.0",
     "videojs-contrib-hls.js": "^3.2.0",
+    "vite-plugin-components": "^0.13.3",
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-resolve-externals": "^0.1.0",
     "vite-plugin-style-import": "^2.0.0",
