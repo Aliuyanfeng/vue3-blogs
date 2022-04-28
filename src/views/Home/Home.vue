@@ -19,7 +19,7 @@
     <!-- 侧栏内容 -->
     <aside>
       <div class="aside_header">
-        <div class="aside_bgc"></div>
+        <div class="aside_bgc" :style="{'backgroundImage': 'url(' + userInfo?.blog_cover + ')'}"></div>
         <div class="aside_avatar aside_box">
           <img :src="userInfo?.blog_avatar" alt="" class="avatar"  v-if="userInfo?.blog_avatar"/>
           <img src="@/assets/img/avatar/avatar.jpg" alt="" class="avatar" v-else />
@@ -327,6 +327,8 @@ const onChangeBanner = (current: number) => {
 
 //#region  点赞模块
 // 点赞 MODULE START
+const isLock = ref<boolean>(false)
+
 const likeInfo = reactive({ 
   ip: 0,
   address: '',
@@ -371,6 +373,8 @@ updateDevice(likeInfo)
 
 // 点赞函数
 const giveYouLike = async (item: articleItem) =>{
+  if(isLock.value) return false
+  isLock.value = true
   let res = await submitLike({
     article_id:item.id,
     ip:ipValue,
@@ -384,11 +388,13 @@ const giveYouLike = async (item: articleItem) =>{
       message: res.info,
       duration: 2.5
     });
+    isLock.value = false
   }else{
     notification.error({
       message: res.info,
       duration: 2.5
     });
+    isLock.value = false
   }
 }
 
