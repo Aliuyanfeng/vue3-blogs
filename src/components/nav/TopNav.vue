@@ -3,9 +3,10 @@
     <div class="header_nav flex_box scroll-sup" :class="{'scroll-style':isScroll || isHaveBackground}">
         <!-- 左侧logo -->
         <a href="/" class="home_link flex_box">
-            <img src="@/assets/img/logo.png" alt="" v-show="!isScroll && !isHaveBackground">
+            <img src="@/assets/img/logo.png" alt="" v-if="!isScroll && !isHaveBackground">
+            <img src="@/assets/img/lyf_logo.png" alt="" v-else class="zlb_logo">
             <span class="site_name">
-            小刘没睡醒呢
+            <!-- 朝与暮 -->
             </span>
         </a>
         <!-- 右侧导航 -->
@@ -225,6 +226,10 @@ ul,ol{
     z-index: 100;
     .home_link{
         align-items: center;
+        .zlb_logo{
+            width: 120px;
+            margin-left: 30px;
+        }
         .site_name{
             font-size: 1.3rem;
             // font-weight: 600;

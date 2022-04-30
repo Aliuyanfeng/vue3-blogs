@@ -668,7 +668,7 @@ canvas {
       .aside_bgc {
         width: 100%;
         height: 200px;
-        background: url("@/assets/img/avatar/bgc.jpg");
+        // background: url("@/assets/img/avatar/bgc.jpg");
         background-size: cover;
         position: relative;
         background-position: 50% 40%;
