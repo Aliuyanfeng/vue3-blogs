@@ -46,17 +46,17 @@ export default ({ command, mode }) => {
       minify: 'esbuild', // 混淆器
       chunkSizeWarningLimit: 500,
       cssCodeSplit: true,
-      terserOptions: {
-        // 生产环境下移除console
-        compress: {
-          drop_console: true,
-          drop_debugger: true
-        },
-        output: {
-          // 去掉注释内容
-          comments: true,
-        },
-      },
+      // terserOptions: {
+      //   // 生产环境下移除console
+      //   compress: {
+      //     drop_console: true,
+      //     drop_debugger: true
+      //   },
+      //   output: {
+      //     // 去掉注释内容
+      //     comments: true,
+      //   },
+      // },
       rollupOptions: {
         output: {
           manualChunks: {
