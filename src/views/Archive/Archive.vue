@@ -83,23 +83,23 @@ import { useRouter } from "vue-router";
 
 import { ClockCircleOutlined, LikeOutlined, EyeOutlined } from "@ant-design/icons-vue";
 
-import * as echarts from "echarts/core";
+// import * as echarts from "echarts/core";
 
-import { LineChart } from 'echarts/charts';
+// import { LineChart } from 'echarts/charts';
 
-import {
-  TitleComponent,
-  TooltipComponent,
-  GridComponent,
-  DatasetComponent,
-  TransformComponent,
-  LegendComponent
-} from 'echarts/components';
+// import {
+//   TitleComponent,
+//   TooltipComponent,
+//   GridComponent,
+//   DatasetComponent,
+//   TransformComponent,
+//   LegendComponent
+// } from 'echarts/components';
 
-// 标签自动布局，全局过渡动画等特性
-import { LabelLayout, UniversalTransition } from 'echarts/features';
-// 引入 Canvas 渲染器，注意引入 CanvasRenderer 或者 SVGRenderer 是必须的一步
-import { CanvasRenderer } from 'echarts/renderers';
+// // 标签自动布局，全局过渡动画等特性
+// import { LabelLayout, UniversalTransition } from 'echarts/features';
+// // 引入 Canvas 渲染器，注意引入 CanvasRenderer 或者 SVGRenderer 是必须的一步
+// import { CanvasRenderer } from 'echarts/renderers';
 
 
 import AMapLoader from "@amap/amap-jsapi-loader";
@@ -128,18 +128,18 @@ onMounted(() => {
 
   nextTick(() => {
     // 注册必须的组件
-  echarts.use([
-    TitleComponent,
-    TooltipComponent,
-    GridComponent,
-    DatasetComponent,
-    TransformComponent,
-    LineChart,
-    LabelLayout,
-    UniversalTransition,
-    CanvasRenderer,
-    LegendComponent
-  ]);
+  // echarts.use([
+  //   TitleComponent,
+  //   TooltipComponent,
+  //   GridComponent,
+  //   DatasetComponent,
+  //   TransformComponent,
+  //   LineChart,
+  //   LabelLayout,
+  //   UniversalTransition,
+  //   CanvasRenderer,
+  //   LegendComponent
+  // ]);
 
     // 绘制echarts
     // const myCharts = ref<any>();
