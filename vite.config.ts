@@ -43,20 +43,20 @@ export default ({ command, mode }) => {
       // target: 'modules',
       // outDir: 'dist', //输出目录
       // assetsDir: 'assets',
-      minify: 'esbuild', // 混淆器
+      minify: 'terser', // 混淆器 esbuild terser
       chunkSizeWarningLimit: 500,
       cssCodeSplit: true,
-      // terserOptions: {
-      //   // 生产环境下移除console
-      //   compress: {
-      //     drop_console: true,
-      //     drop_debugger: true
-      //   },
-      //   output: {
-      //     // 去掉注释内容
-      //     comments: true,
-      //   },
-      // },
+      terserOptions: {
+        // 生产环境下移除console
+        compress: {
+          drop_console: true,
+          drop_debugger: true
+        },
+        output: {
+          // 去掉注释内容
+          comments: true,
+        },
+      },
       rollupOptions: {
         output: {
           manualChunks: {
