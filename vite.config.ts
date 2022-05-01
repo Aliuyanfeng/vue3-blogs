@@ -63,7 +63,7 @@ export default ({ command, mode }) => {
             // 拆分代码
             vue: ['vue', 'vue-router', 'vuex'],
             'ant-design-vue': ['ant-design-vue'],
-            echarts: ['echarts'],
+            // echarts: ['echarts'],
           },
         },
       },
