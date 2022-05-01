@@ -24,7 +24,7 @@ body {
 	background: #eee;
 	z-index: 99999!important;
 }
-/* Start the loader code, first, let's align it the center of screen */
+// Start the loader code, first, let's align it the center of screen 
 .loader {
 	position: absolute;
 	top: 50%;
@@ -35,7 +35,7 @@ body {
 	-o-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
 	text-align:center;
-/* disable selection and cursor changes */
+// disable selection and cursor changes 
 	-webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -46,7 +46,7 @@ body {
 	z-index: 99999!important;
 }
 
-/* Text align it the center of screen and connect the looped animation for 2 seconds */
+// Text align it the center of screen and connect the looped animation for 2 seconds 
 .text{
 	position: absolute;
 	left: -1.3em;
@@ -59,7 +59,7 @@ body {
 	animation: text 2s infinite;
 }
 
-/* Set for the first layer vertical position */
+// Set for the first layer vertical position 
 .vertical{
 	position:absolute;
 	top: -1.84em;
@@ -71,7 +71,7 @@ body {
 	transform: rotate(90deg);
 }
 
-/* Set for the second layer horizontal position */
+// Set for the second layer horizontal position 
 .horizontal{
 	position:absolute;
 	top:0em;
@@ -83,7 +83,7 @@ body {
 	transform: rotate(0deg);
 }
 
-/* The next two classes do mirror for animation */
+// The next two classes do mirror for animation 
 .circlesup{
 	position:absolute;
 	top: -4.7em;
@@ -101,7 +101,7 @@ body {
 	transform: rotate(180deg);
 }
 
-/* Create a container for our circles, rotate it 45 degrees and set animation*/
+// Create a container for our circles, rotate it 45 degrees and set animation
 .circle {
 	position: absolute;
 	width: 15em;
@@ -120,7 +120,7 @@ body {
 	z-index:5;
 } 
 
-/* Style's of our circles */
+// Style's of our circles 
 .circle:after {
 	content: '';
 	position: absolute;
@@ -131,7 +131,7 @@ body {
 	-ms-border-radius: 100%;
 	-o-border-radius: 100%;
 	border-radius: 100%;
-	background: #13A3A5; /* Pick a color 1*/
+	background: #13A3A5; // Pick a color 1
 }
 
 .circle:nth-child(2) {
@@ -144,7 +144,7 @@ body {
 }
 
 .circle:nth-child(2):after  {
-	background: #56bebf; /* Pick a color 2*/
+	background: #56bebf; // Pick a color 2
 	-webkit-transform: scale(0.8,0.8);
 	-moz-transform: scale(0.8,0.8);
 	-ms-transform: scale(0.8,0.8);
@@ -162,7 +162,7 @@ body {
 }
 
 .circle:nth-child(3):after  {
-	background: #ffa489; /* Pick a color 3*/
+	background: #ffa489; // Pick a color 3
 	-webkit-transform: scale(0.6,0.6);
 	-moz-transform: scale(0.6,0.6);
 	-ms-transform: scale(0.6,0.6);
@@ -180,7 +180,7 @@ body {
 }
 
 .circle:nth-child(4):after  {
-	background: #ff6d37; /* Pick a color 4*/
+	background: #ff6d37; // Pick a color 4
 	-webkit-transform: scale(0.4,0.4);
 	-moz-transform: scale(0.4,0.4);
 	-ms-transform: scale(0.4,0.4);
@@ -199,7 +199,7 @@ body {
 }
 
 .circle:nth-child(5):after  {
-	background: #DB2F00; /* Pick a color 5*/
+	background: #DB2F00; // Pick a color 5
 	-webkit-transform: scale(0.2,0.2);
 	-moz-transform: scale(0.2,0.2);
 	-ms-transform: scale(0.2,0.2);
@@ -207,7 +207,7 @@ body {
 	transform: scale(0.2,0.2);
 }
 
-/* Animation keys */
+// Animation keys 
 @-webkit-keyframes orbit {
 	0%		{ -webkit-transform:rotate(45deg); } 
 

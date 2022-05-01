@@ -80,8 +80,8 @@ export function GetCurrentBrowser () {
   }
    
   // getAddress
-  // {/*<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>*/}
-  // {/*export function GetAddress () {*/}
-  //   {/*return returnCitySN*/}
-  // {/*}*/}
+  // <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+  // export function GetAddress () {
+  //   return returnCitySN
+  // }
   
