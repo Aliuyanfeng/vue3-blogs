@@ -51,9 +51,9 @@
         </a-timeline>
       </a-card>
 
-      <a-card>
+      <!-- <a-card>
         <div ref="myChart" :style="{ width: '1200px', height: '300px' }"></div>
-      </a-card>
+      </a-card> -->
 
       <a-card>
         <div id="container" style="height: 800px; width: 1200px"></div>
@@ -117,7 +117,7 @@ const loading = ref<boolean>(false);
 // 是否有背景色
 const isHaveBackground = ref<boolean>(true);
 
-const myChart = ref<HTMLElement>();
+// const myChart = ref<HTMLElement>();
 
 const locationMap = () => {
   MapLoader();
@@ -142,30 +142,30 @@ onMounted(() => {
   ]);
 
     // 绘制echarts
-    const myCharts = ref<any>();
+    // const myCharts = ref<any>();
 
     // 绘制图表
-    myCharts.value = echarts.init(myChart.value!);
-    myCharts.value.setOption({
-      title: { text: "总访问量" },
-      tooltip: {},
-      xAxis: {
-        data: ["12-3", "12-4", "12-5", "12-6", "12-7", "12-8"],
-      },
-      yAxis: {},
-      series: [
-        {
-          name: "阅读量",
-          type: "line",
-          data: [5, 20, 36, 10, 10, 20],
-        },
-        {
-          name: "点赞",
-          type: "line",
-          data: [1, 5, 15, 35, 18, 60],
-        },
-      ],
-    });
+    // myCharts.value = echarts.init(myChart.value!);
+    // myCharts.value.setOption({
+    //   title: { text: "总访问量" },
+    //   tooltip: {},
+    //   xAxis: {
+    //     data: ["12-3", "12-4", "12-5", "12-6", "12-7", "12-8"],
+    //   },
+    //   yAxis: {},
+    //   series: [
+    //     {
+    //       name: "阅读量",
+    //       type: "line",
+    //       data: [5, 20, 36, 10, 10, 20],
+    //     },
+    //     {
+    //       name: "点赞",
+    //       type: "line",
+    //       data: [1, 5, 15, 35, 18, 60],
+    //     },
+    //   ],
+    // });
 
     // 绘制高德地图
 
