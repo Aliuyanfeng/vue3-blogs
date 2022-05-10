@@ -258,7 +258,7 @@ aa.value = import.meta.env.VITE_TITLE as string;
 const testService = (params: { data?: Data; dataList?: Data["data"] }) => {
   const p: any = { limit: 10, type: 1 };
   if (params?.dataList?.length !== undefined) {
-    p["page"] = params.dataList.length / p.limit + 1;
+    p["page"] = Math.floor(params.dataList.length / p.limit) + 1;
   } else {
     p["page"] = 1;
   }
