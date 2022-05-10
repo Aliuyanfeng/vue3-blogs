@@ -408,37 +408,14 @@ getAllTag() //封装的useAction 调用
 
 const allTag = computed(() => store.state.allTag);
 
+// console.error(allTag.value[0].theme_color)
 const parseColor = (text: string) => {
-  switch (text) {
-    case "Vue":
-      return "#41B883";
-      break;
-    case "JavaScript":
-      return "#FDE87F";
-      break;
-    case "HTML":
-      return "#E44C27";
-      break;
-    case "CSS":
-      return "#264EE4";
-      break;
-    case "Node.js":
-      return "Node.js";
-      break;
-    case "前端":
-      return "blue";
-      break;
-    case "后端":
-      return "blue";
-      break;
-    case "转载":
-      return "#909399";
-      break;
-
-    default:
-      return "#909399";
-      break;
-  }
+  return allTag.value.map(item=>{
+    // console.error(item.theme_color)
+    if(text === item.classify_name){
+      return item.theme_color
+    }
+  })
 };
 
 // 处理标签 END
