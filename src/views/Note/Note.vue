@@ -54,7 +54,7 @@
           </ul>
            <a-result title="嗨, 来记一笔吧!" v-else>
               <template #icon>
-                <smile-twoTone />
+                <SmileOutlined />
               </template>
             </a-result>
         </div>
@@ -88,7 +88,8 @@ import { useRouter } from "vue-router";
 
 import {
   BranchesOutlined,
-  BookOutlined
+  BookOutlined,
+  SmileOutlined
 } from '@ant-design/icons-vue';
 
 import { getAllNoteCategory, getClassifyNote } from '@/api/note'
