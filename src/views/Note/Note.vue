@@ -6,30 +6,30 @@
   <a-layout style="min-height: calc(100vh - 87px)">
     <a-layout-sider v-model:collapsed="collapsed" collapsible class="site-layout-background">
        
-      <a-menu theme="light" v-model:selectedKeys="selectedKeys" mode="inline"  @click="_getClassifyNote($event as MenuInfo)">
+      <a-menu theme="light" v-model:selectedKeys="selectedKeys" mode="inline"  @click="_getClassifyNote($event as any)">
          <div v-for="(item,index) in data2" :key="item!.id">
           <template v-if="item.children!.length == 0">
             <a-menu-item :key="item!.id">
-              <pie-chart-outlined />
-              <span>{{item!.name}}</span>
+              <BranchesOutlined />
+              <span>{{item!.classify_name}}</span>
             </a-menu-item>
           </template>
           <template v-else>
             <a-sub-menu :key="item!.id">
               <template #title>
                 <span>
-                  <user-outlined />
-                  <span>{{item!.name}}</span>
+                  <BookOutlined />
+                  <span>{{item!.classify_name}}</span>
                 </span>
               </template>
               
               <div v-for="(item2,index2) in item!.children" :key="item2!.id">
                 <template v-if="item2.children!.length == 0">
-                  <a-menu-item :key="item2.id">{{item2!.name}}</a-menu-item>
+                  <a-menu-item :key="item2.id">{{item2!.classify_name}}</a-menu-item>
                 </template>
                 <template v-else>
-                  <a-sub-menu :key="item2!.id" :title="item2!.name">
-                    <a-menu-item v-for="(item3,index3) in item2!.children" :key="item3!.id">{{item3.name}}</a-menu-item>
+                  <a-sub-menu :key="item2!.id" :title="item2!.classify_name">
+                    <a-menu-item v-for="(item3,index3) in item2!.children" :key="item3!.id">{{item3.classify_name}}</a-menu-item>
                   </a-sub-menu>
                 </template>
               </div>
@@ -87,35 +87,14 @@ import Footer from "@/components/footer.vue";
 import { useRouter } from "vue-router";
 
 import {
-  PieChartOutlined,
-  DesktopOutlined,
-  UserOutlined,
-  TeamOutlined,
-  FileOutlined,
-  SmileTwoTone
+  BranchesOutlined,
+  BookOutlined
 } from '@ant-design/icons-vue';
 
 import { getAllNoteCategory, getClassifyNote } from '@/api/note'
 
-interface InoteCategory{
-  id?:number,
-  name?:string,
-  children?:InoteCategory[], 
-}
-interface MenuInfo {
-  key: string;
-  keyPath: string[];
-  item: VNodeChild;
-  domEvent: MouseEvent;
-}
-interface InoteItem{
-  id?:number,
-  create_time?:string,
-  note_classify_id?:string,
-  note_html?:string,
-  note_md?:string,
-  note_name?:string, 
-}
+import { InoteCategory, MenuInfo, InoteItem } from '@/interface/note'
+
 // 加载loding
 const loading = ref<boolean>(false);
 // 是否有背景色

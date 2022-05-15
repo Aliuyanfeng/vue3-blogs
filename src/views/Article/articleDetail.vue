@@ -88,15 +88,15 @@ const _getArticleDetail = async () => {
 
 const routes = [
   {
-    path: "index",
+    path: "/",
     breadcrumbName: "首页",
   },
   {
-    path: "first",
+    path: "/ArticleList",
     breadcrumbName: "文章列表",
   },
   {
-    path: "second",
+    path: "return",
     breadcrumbName: "文章详情",
   },
 ];
