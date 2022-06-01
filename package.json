@@ -44,5 +44,8 @@
     "vite": "^2.9.5",
     "vite-plugin-imagemin": "^0.6.1",
     "vue-tsc": "^0.3.0"
+  },
+  "resolutions": {
+    "bin-wrapper": "npm:bin-wrapper-china"
   }
 }
