@@ -30,8 +30,6 @@
         </div>
         <div class="aside_text aside_box">
           <p>{{ userInfo?.blog_descrption }}</p>
-          <!-- <p>我们走在街上，遇到的是一群死人和另一群死人。</p> -->
-          <!-- <p>我们看起来就像活着一样，就像活着一样。</p> -->
         </div>
       </div>
 
@@ -178,6 +176,7 @@
         </template>
       </a-list>
     </article>
+    <a-back-top />
   </div>
   <Footer></Footer>
 

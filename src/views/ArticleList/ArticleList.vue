@@ -10,12 +10,27 @@
           <img
             alt="example"
             src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+            v-if="!item.article_cover"
           />
+          <img :src="item.article_cover" alt="" v-else>
         </template>
         <template class="ant-card-actions" #actions>
-          <FireOutlined  :style="{color:'red'}"/>
-          <LikeOutlined :style="{color:'#1890FF'}"/>
-          <ShareAltOutlined @click="copyShareUrl(item)"/>
+          <FireOutlined  :style="{color:'red'}" v-if="item.article_importance == 3"/>
+          <a-tooltip placement="top">
+            <template #title>
+              <span>点赞数</span>
+            </template>
+            <div>
+              <LikeOutlined :style="{color:'#1890FF'}"/> {{item.article_like}}
+            </div>
+          </a-tooltip>
+          
+          <a-tooltip placement="top">
+            <template #title>
+              <span>分享</span>
+            </template>
+            <ShareAltOutlined @click="copyShareUrl(item)"/>
+          </a-tooltip>
         </template>
         <a-card-meta :title="item.article_title" @click="jumpArticleDetail(item)">
           <template #avatar>
@@ -148,12 +163,19 @@ const jumpArticleDetail = (article:articleInfoInterface) =>{
 
     display: flex;
     flex-wrap: wrap; 
-    .artice-item{
+    ::v-deep() .artice-item{
       &:nth-of-type(n+5){
         margin-top: 15px;
       }
       &:not(:nth-of-type(4n+1)){
         margin-left: calc((1200px - 1160px) / 3);
+      }
+
+      .ant-card-cover {
+        height: 180px;
+        img {
+          height: 100%;
+        }
       }
     }
   }

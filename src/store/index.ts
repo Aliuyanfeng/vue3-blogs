@@ -25,11 +25,11 @@ export default createStore<RootStateTypes>({
   getters: {},
   mutations: {
     // 修改loading 状态
-    changeLoadingStatus(state) {
+    CHANGELOADINGSTATUS(state) {
       state.isLoading = !state.isLoading
     },
     // 标签接口存储
-    setAllTag(state, list) {
+    SETALLTAG(state, list) {
       state.allTag = list
     }
   },
@@ -39,12 +39,13 @@ export default createStore<RootStateTypes>({
       return new Promise((resolve, reject) => {
         getAllTag().then((res: any) => {
           if (res.code === 200) {
-            context.commit('setAllTag',res.data)
+            context.commit('SETALLTAG',res.data)
             resolve(res.data)
           }
         })
       })
-    }
+    },
+    // 获取个人信息 
   },
   modules: {
     testModule,
