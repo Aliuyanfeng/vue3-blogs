@@ -12,8 +12,8 @@
         <!-- 右侧导航 -->
         <div class="links">
             <!-- 一键切换黑暗模式 -->
-            <!-- <BulbOutlined :style="{fontSize: '18px', lineHeight: '25px',marginRight: '1.5rem'}" v-if="darkMode" @click="changeMode"/>
-            <BulbFilled :style="{fontSize: '18px', lineHeight: '25px',marginRight: '1.5rem'}" v-else @click="changeMode"/> -->
+            <BulbOutlined :style="{fontSize: '18px', lineHeight: '25px',marginRight: '1.5rem'}" v-if="darkMode" @click="changeMode"/>
+            <BulbFilled :style="{fontSize: '18px', lineHeight: '25px',marginRight: '1.5rem'}" v-else @click="changeMode"/>
             <!-- 文章搜索按钮 -->
             <!-- <a-input-group compact>
                 <a-select v-model:value="searchType">
@@ -121,7 +121,7 @@
     const emits = defineEmits(['search-article'])
 
     // 切换灯光模式
-    const darkMode = ref<boolean>(false)
+    const darkMode = ref<boolean>(true)
 
     const changeMode = ()=>{
         darkMode.value = !darkMode.value

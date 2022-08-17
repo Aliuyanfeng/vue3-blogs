@@ -6,6 +6,7 @@ import store, { key } from './store'
 
 // import Antd from 'ant-design-vue';
 // import 'ant-design-vue/dist/antd.css';
+// import 'ant-design-vue/dist/antd.dark.less';
 
 // 全局配置请求
 import { setGlobalOptions } from 'vue-request';

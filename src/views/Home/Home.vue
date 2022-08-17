@@ -588,6 +588,7 @@ const getFromHomeDay = (data: any) => {
 
 </script>
 <style lang="scss" scoped>
+@import '@/assets/css/theme.scss';
 canvas {
   width: 100%;
   height: 90px;
@@ -621,7 +622,8 @@ canvas {
   }
 }
 .main_container {
-  width: 1200px;
+  // width: $contenWidth;
+  width: var(--content-width);
   margin: 0 auto;
   padding: 30px 0;
   background-color: transparent;

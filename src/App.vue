@@ -64,9 +64,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "@/assets/css/reset.css";
+@import "@/assets/css/reset";
 
-@import "@/assets/css/public.css";
+@import "@/assets/css/public";
 
 #app {
   position: relative;
